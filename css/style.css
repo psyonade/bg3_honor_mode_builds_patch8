@@ -15,12 +15,12 @@
     --accent-soft: rgba(157, 127, 209, 0.1);
     --accent-line: rgba(157, 127, 209, 0.3);
 
-    /* Rarity Colors */
-    --common: #b2b2b2;
-    --uncommon: #1eff00;
-    --rare: #0070dd;
-    --very-rare: #a335ee;
-    --legendary: #ff8000;
+    /* Rarity Colors - Custom as per user request */
+    --rarity-common: #44bb44; /* Green */
+    --rarity-uncommon: #44bb44; /* Green */
+    --rarity-rare: #3b82f6; /* Blue */
+    --rarity-very-rare: #ef4444; /* Red */
+    --rarity-legendary: #d4af37; /* Gold */
 }
 
 * { box-sizing: border-box; }
@@ -80,7 +80,17 @@ body {
 }
 
 @media (max-width: 850px) {
-    .build-select { grid-template-columns: repeat(2, 1fr); }
+    .build-select {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .build-select {
+        grid-template-columns: 1fr;
+    }
+    body { padding: 20px 15px 60px; }
 }
 
 .build-btn {
@@ -155,6 +165,10 @@ body {
     box-shadow: 0 4px 30px rgba(0,0,0,0.2);
 }
 
+@media (max-width: 600px) {
+    .banner { padding: 20px; }
+}
+
 .banner-top {
     display: flex;
     align-items: baseline;
@@ -210,6 +224,7 @@ body {
     margin-bottom: 32px;
     border-bottom: 1px solid var(--border-soft);
     scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
 }
 
 .tabs::-webkit-scrollbar { display: none; }
@@ -278,6 +293,45 @@ h3.block-title:first-child { margin-top: 0; }
     margin-bottom: 20px;
 }
 
+/* ---------- Companion Card ---------- */
+.companion-card {
+    display: flex;
+    gap: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 32px;
+    align-items: center;
+}
+
+@media (max-width: 600px) {
+    .companion-card { flex-direction: column; text-align: center; }
+}
+
+.companion-portrait {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--gold);
+    object-fit: cover;
+    box-shadow: 0 0 15px var(--gold-glow);
+}
+
+.companion-info h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    color: var(--text);
+    margin: 0 0 8px;
+}
+
+.companion-info p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.6;
+}
+
 /* ---------- Ability Grid ---------- */
 .ability-grid {
     display: grid;
@@ -312,16 +366,15 @@ h3.block-title:first-child { margin-top: 0; }
 
 .ability-score {
     font-family: 'Cinzel', serif;
-    font-size: 32px;
+    font-size: 28px;
     color: var(--accent);
     font-weight: 800;
     margin-bottom: 10px;
 }
 
-.ability-mod {
-    font-size: 14px;
+.ability-bonus {
+    font-size: 18px;
     color: var(--gold);
-    font-weight: 600;
     margin-left: 4px;
 }
 
@@ -340,6 +393,10 @@ h3.block-title:first-child { margin-top: 0; }
     gap: 16px;
 }
 
+@media (max-width: 400px) {
+    .gear-grid { grid-template-columns: 1fr; }
+}
+
 .gear-card {
     background: var(--surface);
     border: 1px solid var(--border-soft);
@@ -349,7 +406,14 @@ h3.block-title:first-child { margin-top: 0; }
     flex-direction: column;
     gap: 12px;
     transition: all 0.2s ease;
+    position: relative;
+    border-left: 4px solid var(--rarity-common);
 }
+
+.gear-card.rarity-uncommon { border-left-color: var(--rarity-uncommon); }
+.gear-card.rarity-rare { border-left-color: var(--rarity-rare); }
+.gear-card.rarity-very-rare { border-left-color: var(--rarity-very-rare); }
+.gear-card.rarity-legendary { border-left-color: var(--rarity-legendary); }
 
 .gear-card:hover {
     border-color: var(--accent-line);
@@ -359,7 +423,28 @@ h3.block-title:first-child { margin-top: 0; }
 .gear-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+    gap: 12px;
+}
+
+.gear-img-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid var(--border);
+    background: #000;
+}
+
+.gear-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gear-title-row {
+    flex-grow: 1;
 }
 
 .gear-slot {
@@ -368,6 +453,8 @@ h3.block-title:first-child { margin-top: 0; }
     text-transform: uppercase;
     letter-spacing: .1em;
     color: var(--accent);
+    display: block;
+    margin-bottom: 2px;
 }
 
 .gear-name {
@@ -560,7 +647,7 @@ footer {
     letter-spacing: 0.05em;
 }
 
-.pc-box.pros h4 { color: var(--uncommon); }
+.pc-box.pros h4 { color: var(--rarity-common); }
 .pc-box.cons h4 { color: #ff4444; }
 
 .pc-box ul {
@@ -578,5 +665,34 @@ footer {
     line-height: 1.5;
 }
 
-.pc-box.pros li::before { content: "✓"; position: absolute; left: 0; color: var(--uncommon); }
+.pc-box.pros li::before { content: "✓"; position: absolute; left: 0; color: var(--rarity-common); }
 .pc-box.cons li::before { content: "✕"; position: absolute; left: 0; color: #ff4444; }
+
+/* ---------- Info Grid ---------- */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.info-card {
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.info-card .k {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+}
+
+.info-card .v {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.5;
+}

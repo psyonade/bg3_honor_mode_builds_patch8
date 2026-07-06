@@ -62,12 +62,16 @@ function renderTabs(){
   document.getElementById('tabs').innerHTML = sections.map(s=>
     `<button class="tab-btn ${s.id===currentSection?'active':''}" data-section="${s.id}">${s.label}</button>`
   ).join('');
-  document.querySelectorAll('.tab-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      currentSection = btn.dataset.section;
-      renderTabs();
-      renderContent();
-    });
+}
+
+function setupTabs(){
+  const tabsContainer = document.getElementById('tabs');
+  tabsContainer.addEventListener('click', (e)=>{
+    const btn = e.target.closest('.tab-btn');
+    if(!btn) return;
+    currentSection = btn.dataset.section;
+    renderTabs();
+    renderContent();
   });
 }
 
@@ -116,16 +120,21 @@ function renderOverview(b){
         </div>
     </div>
 
+    <h3 class="block-title">Recommended Companion</h3>
+    <div class="companion-card">
+        <img src="${b.portrait}" alt="${b.overview.recommended.split(' — ')[0]}" class="companion-portrait">
+        <div class="companion-info">
+            <h4>${b.overview.recommended.split(' — ')[0]}</h4>
+            <p>${b.overview.recommended.split(' — ')[1] || b.overview.recommended}</p>
+        </div>
+    </div>
+
     <h3 class="block-title">Final Class Split — Level 12</h3>
     <div class="split-bar">${bar}</div>
     <div class="split-legend">${legend}</div>
 
-    <h3 class="block-title">Character & Races</h3>
+    <h3 class="block-title">Racial Options</h3>
     <div class="info-grid">
-      <div class="info-card">
-        <div class="k">Companion Choice</div>
-        <div class="v">${b.overview.recommended}</div>
-      </div>
       ${b.overview.races.map(r=>`
         <div class="info-card">
             <div class="k">${r.name}</div>
@@ -138,25 +147,21 @@ function renderOverview(b){
 
 function renderAbilities(b){
   return `
-    <h3 class="block-title">Ability Scores</h3>
+    <h3 class="block-title">Starting Ability Scores</h3>
     <div class="ability-grid">
       ${b.abilities.map(a=>{
-        let modStr = '';
-        if(typeof a.score === 'number'){
-            const mod = Math.floor((a.score - 10) / 2);
-            modStr = `<span class="ability-mod">(${mod >= 0 ? '+' : ''}${mod})</span>`;
-        }
+        const bonusStr = a.bonus ? `<span class="ability-bonus">(+${a.bonus})</span>` : '';
         return `
         <div class="ability-card">
           <div class="ability-name">${a.name}</div>
-          <div class="ability-score">${a.score}${modStr}</div>
+          <div class="ability-score">${a.score}${bonusStr}</div>
           <div class="ability-reason">${a.reason}</div>
         </div>
       `}).join('')}
     </div>
     <div class="note-box">
-        <h4>Optimization Tip</h4>
-        <p>Prioritize reaching 20 in your primary stat (usually via Feats and Auntie Ethel's Hair) to maximize your hit chance and damage scaling.</p>
+        <h4>Ability Score Assignment</h4>
+        <p>At Level 1, assign your base points as shown above. The +1 and +2 icons denote where to place your racial/starting bonuses.</p>
     </div>
   `;
 }
@@ -189,11 +194,16 @@ function renderGear(b){
             ${group.intro ? `<p class="lede">${group.intro}</p>` : ''}
             <div class="gear-grid">
                 ${group.items.map(item => `
-                    <div class="gear-card">
+                    <div class="gear-card rarity-${item.rarity || 'common'}">
                         <div class="gear-header">
-                            <span class="gear-slot">${item.slot}</span>
+                            <div class="gear-img-wrap">
+                                <img src="${item.image}" alt="${item.item}" class="gear-img">
+                            </div>
+                            <div class="gear-title-row">
+                                <span class="gear-slot">${item.slot}</span>
+                                <div class="gear-name">${item.item}</div>
+                            </div>
                         </div>
-                        <div class="gear-name">${item.item}</div>
                         <span class="gear-location">📍 ${item.location}</span>
                         <div class="gear-desc">${item.note}</div>
                         <a href="${item.wiki}" target="_blank" class="gear-wiki-btn">
@@ -256,4 +266,7 @@ function fullRender(){
   renderContent();
 }
 
-document.addEventListener('DOMContentLoaded', fullRender);
+document.addEventListener('DOMContentLoaded', ()=>{
+  setupTabs();
+  fullRender();
+});
