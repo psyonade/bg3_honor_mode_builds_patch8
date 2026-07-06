@@ -17,7 +17,7 @@
 
     /* Rarity Colors - Custom as per user request */
     --rarity-common: #44bb44; /* Green */
-    --rarity-uncommon: #44bb44; /* Green */
+    --rarity-uncommon: var(--border-soft); /* Neutral */
     --rarity-rare: #3b82f6; /* Blue */
     --rarity-very-rare: #ef4444; /* Red */
     --rarity-legendary: #d4af37; /* Gold */
