@@ -398,7 +398,7 @@ const builds = {
         {slot:"Boots", item:"Helldusk Boots", note:"Upgraded Misty Step (fire damage + fiery landing) + ignores difficult terrain."},
         {slot:"Armor", item:"Armour of Agility", note:"AC + Dex-based saving throw bonus."},
         {slot:"Gloves", item:"Gloves of Dexterity", note:"+1 to-hit + initiative, synergizes with Armour of Agility."},
-        {slot:"Gloves (swap)", item:"Gemini Gloves", note:"Sold by Helsik. Makes cantrips hit an additional target once per short rest."},
+        {slot:"Gloves (swap)", item:"Gloves of Battlemage's Power", note:"When the wearer inflicts a condition with a weapon attack, they gain Arcane Acuity (bonus to spell attack rolls and save DC)."},
       ]},
     ],
     strategy: [
@@ -421,7 +421,7 @@ const builds = {
         <ul>
           <li>Full necrotic commitment — resistances matter less at this stage.</li>
           <li>Combo: Staff of Cherished Necromancy free-cast → Markoheshkir free-cast (Ray of Sickness via Kereska's Favour) → repeat on kills for multiple free high-level spells back-to-back.</li>
-          <li>Vampiric Touch (upcast) for sustain — heals half the damage dealt, reusable while concentration holds; combos with Grim_Harvest.</li>
+          <li>Vampiric Touch (upcast) for sustain — heals half the damage dealt, reusable while concentration holds; combos with Grim Harvest.</li>
           <li>Bonus action: hand crossbow shot to proc Divine Strike (Necrotic).</li>
           <li>Passive: Halo of Spores chip damage each turn (doubled with Symbiotic Entity).</li>
           <li>Rotate Dethrone / Circle of Death / Inflict Wounds / Spirit Guardians / Glyph of Warding / Vampiric Touch by situation.</li>
@@ -656,22 +656,53 @@ const builds = {
     accentLine: "rgba(217,178,60,0.4)",
     overview: {
       theme: "A spellblade \"Bladesinger\" Wizard that fights in melee with weapons while layering spellcasting utility/damage, multiclassed for explosive burst.",
-      playstyle: "Extremely high single-turn burst (\"Nova\") damage — capable of one-shotting bosses — combined with very high AC (30s–40+) from Bladesong and defensive spells.",
+      playstyle: "A high-AC warrior-mage that dominates the battlefield with mobility and versatility. Capable of 30+ AC early on and massive single-turn burst (\"Nova\") damage by late game.",
       split: [
         {name:"Wizard (Bladesinger)", levels:10},
         {name:"Paladin (Oath of the Crown)", levels:2},
       ],
-      note: "This is Part 2 of a two-part guide — levels 1–8 and Act 1–2 gear live in a separate Part 1. Carried over: Shadowblade + Resonance Stone combo.",
-      whySplit: "Two main paths exist for the final levels: Path 1 (Paladin) adds Divine Smite for massive Nova damage on weapon hits. Path 2 (Fighter) adds Action Surge for an extra action. Paladin is preferred for dual-wielding smite chains. (Alternative: respec Paladin at level 1 for more HP; take Wizard last so scrolls scale with Intelligence.)",
-      recommended: "Custom character — Githyanki or Wood Elf recommended.",
+      whySplit: "The final levels can pivot between Paladin (Divine Smite for burst) or Fighter (Action Surge). Paladin is the preferred endgame choice for dual-wielding smite chains.",
+      recommended: "Custom character — any race works, but movement and crit-focused ones shine.",
       races: [
-        {name:"Githyanki", note:"Medium Armor proficiency (pre-Bladesong) and Astral Knowledge."},
-        {name:"Wood Elf", note:"Extra movement speed and Stealth proficiency."},
+        {name:"Wood Elf / Wood Half-Elf", note:"Top pick for the extra movement speed which is vital for the Bladesinger's mobile playstyle."},
+        {name:"Half-Orc", note:"Incredible for consistent crits and Relentless Endurance provides great sustain in Honor Mode."},
+        {name:"Dwarf", note:"Strong sustain choice; Enlarge provides a nice damage boost."},
+        {name:"Githyanki", note:"Excellent for a 'Party Face' character via Astral Knowledge; provides free utility spells and Proficiency in skills like Persuasion."},
       ]
     },
-    abilities: [],
+    abilities: [
+      {name:"Dexterity", score:17, reason:"Scales melee attacks, AC, and initiative. Aim for 20 using Ethel's Hair and Ability Improvement."},
+      {name:"Intelligence", score:16, reason:"Scales your spell DC and detect thoughts options in dialogue."},
+      {name:"Constitution", score:14, reason:"HP and maintaining concentration on core spells like Haste or Shadow Blade."},
+      {name:"Wisdom", score:10, reason:"Baseline for common Wisdom saving throws."},
+      {name:"Charisma / Strength", score:"Dump", reason:"Not needed; use Intelligence (Detect Thoughts) for social interactions."},
+    ],
     leveling: [
-      { range:"Recap of Part 1 (still core)", html:`Cloud of Daggers, Fireball, Haste, Hold Person, Counterspell, Mirror Image, Shield, and the Shadowblade weapon + Resonance Stone combo remain central to the strategy.`},
+      { range:"Level 1", html:`
+        <strong>Cantrips:</strong> Booming Blade (essential melee replacement), Ray of Frost (kiting), Shocking Grasp (deny reactions).<br>
+        <strong>Must-have Spells:</strong> Shield (+5 AC reaction), Magic Missile (guaranteed damage), Longstrider (ritual movement), Mage Armor (base 13 AC).<br>
+        <strong>Utility:</strong> Chromatic Orb (flexible damage), Expeditious Retreat (bonus action Dash).`},
+      { range:"Level 2 — Bladesinger Subclass", html:`
+        <strong>Subclass feature — Bladesong:</strong> +2 AC (18 total with Mage Armor), +10ft movement, +2 to Concentration saves. Bonus action to activate.<br>
+        <strong>Core skill — Bladesong Climax:</strong> Build healing charges by attacking or damage charges by casting. Climax heals allies or damages enemies in an AoE.<br>
+        <strong>Spells:</strong> Thunderwave (knockback), Find Familiar (utility). Use a <strong>Rapier</strong> as your baseline weapon.`},
+      { range:"Level 3", html:`
+        <strong>Shadow Blade:</strong> Your new primary weapon; scales with Dexterity and deals Psychic damage. Use a level 2 slot to cast.<br>
+        <strong>Cloud of Daggers:</strong> Excellent AoE concentration for choke points.`},
+      { range:"Level 4", html:`
+        <strong>Feat: Ability Improvement</strong> <span class="feat-tag">FEAT</span> — +2 Dexterity (19 total, 20 if using Ethel's Hair).<br>
+        <strong>Cantrip:</strong> Friends (dialogue checks).<br>
+        <strong>Spells:</strong> Hold Person (guaranteed crits), Mirror Image (massive AC boost without concentration).`},
+      { range:"Level 5", html:`
+        <strong>Huge Power Spike:</strong> Unlock 3rd-level spells.<br>
+        <strong>Haste:</strong> +2 AC, extra action, and movement. (Pushes AC to 33+ with everything active).<br>
+        <strong>Fireball:</strong> Raw AoE destructive power.`},
+      { range:"Level 6", html:`
+        <strong>Extra Attack:</strong> The only Wizard to get this; allows one weapon attack and one cantrip (like Booming Blade) per action.<br>
+        <strong>Spells:</strong> Counterspell (denial), Glyph of Warding (elemental AoE), Lightning Bolt.`},
+      { range:"Levels 7–8", html:`
+        <strong>Spells:</strong> Ice Storm (damage + CC), Dimension Door, Fire Shield, Confusion (powerful CC).<br>
+        <strong>Feat: Savage Attacker</strong> <span class="feat-tag">FEAT</span> — Rerolls damage dice for weapon attacks, including the many bonus dice this build stacks.`},
       { range:"Level 9 — Level 5 spells", html:`
         <strong>Hold Monster</strong> — like Hold Person but works on monsters too; guarantees crits (and crit-value Divine Smites) — can effectively delete strong single enemies in one turn.<br><br>
         <strong>Conjure Elemental</strong> — a summon roughly HP-equivalent to a 5th party member; strong aggro-soak, CC, AoE, and adaptable elemental damage type vs. enemy weaknesses; upcastable for a stronger version.`},
@@ -688,20 +719,31 @@ const builds = {
         <strong>Fighting Style:</strong> Defense. Can now prepare one Paladin spell — recommend a utility/Charisma-flavored pick like Divine Favor or Shield of Faith.`},
     ],
     gear: [
-      { title:"Weapons — Two Paths", items:[
-        {slot:"Path 1: Shadowblade", item:"Shadowblade (+ Resonance Stone)", note:"The single best damage option. Shadowblade deals Psychic damage, which is doubled by the Resonance Stone."},
+      { title:"Act 1 — Decked Out Early", items:[
+        {slot:"Main Hand", item:"Shadow Blade", note:"Core weapon cast from a spell slot. Deals Psychic damage and scales with Dexterity."},
+        {slot:"Off Hand", item:"Knife of the Undermountain King", note:"Bought from A'jak'nir Jeera in Crèche Y'llek. Increases crit range and rerolls low damage dice."},
+        {slot:"Off Hand (Early)", item:"Speedy Reply / Hunter's Dagger", note:"Found at Risen Road or Goblins. Speedy Reply gives Momentum; Hunter's Dagger applies Rupture."},
+        {slot:"Armor", item:"Blood Guzzler's Garb", note:"Dropped by the Bulette in the Underdark. Stacks Wrath when damaged."},
+        {slot:"Gloves", item:"Bracers of Defense", note:"Found in the Blighted Village. +2 AC while not wearing armor or a shield."},
+        {slot:"Helm", item:"Diadem of Arcane Synergy", note:"Found in the Inquisitor's chamber (Crèche Y'llek). Adds Intelligence modifier to weapon damage."},
+        {slot:"Amulet", item:"Periapt of Wound Closure", note:"Sold by Lady Esther. Maximizes self-healing from Bladesong or potions."},
+        {slot:"Ring", item:"Caustic Band", note:"Sold by Derryth Bonecloak. +2 Acid damage to weapon attacks."},
+        {slot:"Ring (2nd)", item:"Crusher's Ring", note:"Looted from Crusher. +3m movement speed."},
+        {slot:"Bow", item:"Bow of Awareness", note:"Sold by Roah Moonglow. +1 to Initiative."},
+      ]},
+      { title:"Act 2 — Scaling Power", items:[
+        {slot:"Cloak", item:"Cloak of Protection", note:"Sold by Quartermaster Talli. +1 AC and Saving Throws."},
+        {slot:"Gloves", item:"Gloves of Battlemage's Power", note:"Replaces Bracers of Defense once your AC is high enough. Grants Arcane Acuity on weapon hits."},
+        {slot:"Ring", item:"Strange Conduit Ring", note:"Replaces Crusher's Ring. Adds 1d4 Psychic damage while concentrating."},
+        {slot:"Inventory", item:"Resonance Stone", note:"Found in the Mind Flayer Colony. Doubles all Psychic damage (including your Shadow Blade)."},
+      ]},
+      { title:"Act 3 — Ultimate Godblade", items:[
+        {slot:"Path 1: Shadow Blade", item:"Shadow Blade (+ Resonance Stone)", note:"The single best damage option. Psychic damage is doubled by the Resonance Stone."},
         {slot:"Path 2: Traditional", item:"Duellist's Prerogative", note:"Pair with Bhaalist Armour to double its Piercing damage. Offers an extra reaction and strong weapon actions."},
         {slot:"Off hand", item:"Rhapsody", note:"Found in Cazador's Palace. Stacks 'Scarlet Remittance' for +3 to Attack Rolls, Damage, and Spell Save DC."},
-      ], intro:"Alternative main-hand weapons include the Infernal Rapier or Phalar Aluve (thematically fitting for a Bladesinger)." },
-      { title:"Armor & Accessories", items:[
-        {slot:"Helm", item:"Diadem of Arcane Synergy", note:"Adds Intelligence modifier to weapon damage when inflicting a condition."},
-        {slot:"Cloak", item:"Cloak of Protection", note:"+1 AC and Saving Throws."},
-        {slot:"Chest", item:"Robe of the Weave", note:"Found in Ramazith's Tower. +2 AC and boosts Spell Save DC and Spell Attack Rolls."},
-        {slot:"Gloves", item:"Gloves of Battlemage's Power", note:"Grants Arcane Acuity on weapon hits, making your spells much harder to resist."},
+        {slot:"Chest", item:"Robe of the Weave", note:"Found in Ramazith's Tower. +2 AC, boosts Spell Save DC and Attack Rolls, and heals you on successful saving throws. Compatible with Bladesong."},
         {slot:"Boots", item:"Disintegrating Night Walkers", note:"Grants Misty Step and prevents being Enwebbed or Entangled."},
         {slot:"Amulet", item:"Amulet of Greater Health", note:"Sets Constitution to 23. Essential for concentration and survivability. Found in the House of Hope."},
-        {slot:"Amulet (alt)", item:"Spellcrux Amulet", note:"Recover a spell slot of any level. Found in Moonrise Towers."},
-        {slot:"Ring", item:"Strange Conduit Ring", note:"Adds 1d4 Psychic damage to weapon attacks while concentrating."},
         {slot:"Ring (2nd)", item:"Band of the Mystic Scoundrel", note:"Allows casting Illusion or Enchantment spells as a bonus action after a weapon attack."},
         {slot:"Bow slot", item:"Hellrider Longbow", note:"+3 to Initiative. Essential for going first."},
       ]},
@@ -709,7 +751,15 @@ const builds = {
     ],
     strategy: [
       { title:"Standard turn opener", html:`Cast Shadowblade and Mage Armor at the start of the day.`},
-      { title:"Core damage loop", html:`Attack (main + off-hand via Extra Attack/Haste) → trigger Divine Smite on each hit, sizing the smite to the enemy's remaining HP (cap effectiveness at a level 4 slot) → layer Hold Person/Hold Monster for guaranteed crits on priority targets → use AoE nukes (Fireball, Cone of Cold, Cloudkill, Chain Lightning/Lightning Bolt, Suffocation, Dethrone, Disintegrate) by damage type/enemy weakness → summon Conjure Elemental and/or the scribed Défa for extra aggro/utility/psychic synergy with the Resonance Stone → defend with Shield, Mirror Image, Song of Victory, and Globe of Invulnerability when playing safe.`},
+      { title:"Core damage loop", html:`
+        <ul>
+          <li><strong>Weapon Attacks:</strong> Attack (main + off-hand via Extra Attack/Haste) → trigger Divine Smite on each hit, sizing the smite to the enemy's remaining HP (cap effectiveness at a level 4 slot).</li>
+          <li><strong>Shadow Blade Upcasting:</strong> Use a level 3 slot for higher damage, or a level 5 slot for the highest tier. Avoid level 4 or level 6 slots as they do not provide additional damage scaling for the blade.</li>
+          <li><strong>Control:</strong> Layer Hold Person/Hold Monster for guaranteed crits on priority targets.</li>
+          <li><strong>Spells:</strong> Use AoE nukes (Fireball, Cone of Cold, Cloudkill, Chain Lightning, etc.) or single-target spells (Suffocation, Dethrone, Disintegrate) depending on enemy weaknesses.</li>
+          <li><strong>Summons:</strong> Summon Conjure Elemental and/or the Deva for extra aggro, utility, and psychic damage synergy with the Resonance Stone.</li>
+          <li><strong>Defense:</strong> Maintain high survivability with Shield, Mirror Image, Song of Defence (Level 10), and Globe of Invulnerability when playing safe.</li>
+        </ul>`},
       { title:"Example burst — Gorash fight (Honor Mode, no potions/prep)", html:`3 weapon attacks per turn (Bladesinger's level-6 Extra Attack + Haste), and since dual-wielding this yields up to 8 total instances of main/off-hand weapon damage, each individually eligible for a Divine Smite. Result: hundreds of damage in a single turn, capable of killing high-HP bosses in one turn even through their defensive reactions/buffs (e.g. a +150 HP buff was still overcome in the same turn).`},
     ],
     scrolls: [
