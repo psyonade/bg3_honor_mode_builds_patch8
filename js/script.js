@@ -1,272 +1,379 @@
-/* ============================= STATE ============================= */
-let currentBuild = 'A';
-let currentSection = 'overview';
-const sections = [
-  {id:'overview', label:'Overview'},
-  {id:'abilities', label:'Abilities'},
-  {id:'leveling', label:'Leveling'},
-  {id:'gear', label:'Gear'},
-  {id:'strategy', label:'Strategy'},
-  {id:'notes', label:'Takeaways'},
-];
+document.addEventListener('DOMContentLoaded', () => {
+    // Current state
+    let currentBuild = builds[0]; // Default to first build
+    let currentAct = 'act1';
+    let selectedVariants = {
+        multiclass: 'paladin',
+        gear: 'shadowblade'
+    };
 
-/* ============================= RENDER: build select ============================= */
-function renderBuildSelect(){
-  const el = document.getElementById('buildSelect');
-  el.innerHTML = Object.keys(builds).map(id=>{
-    const b = builds[id];
-    const active = id===currentBuild ? 'active' : '';
-    return `<button class="build-btn ${active}" data-build="${id}"
-      style="--btn-accent:${b.accent}; --btn-accent-soft:${b.accentSoft}; --btn-accent-line:${b.accentLine};">
-      <span class="build-tag">Build ${id} · ${b.tag}</span>
-      <span class="build-name">"${b.codename}"</span>
-      <span class="build-sub">${b.subtitle}</span>
-    </button>`;
-  }).join('');
-  el.querySelectorAll('.build-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      currentBuild = btn.dataset.build;
-      currentSection = 'overview';
-      fullRender();
-    });
-  });
-}
+    // Initialize UI
+    renderBuild(currentBuild);
 
-/* ============================= RENDER: banner ============================= */
-function renderBanner(){
-  const b = builds[currentBuild];
-  document.documentElement.style.setProperty('--accent', b.accent);
-  document.documentElement.style.setProperty('--accent-soft', b.accentSoft);
-  document.documentElement.style.setProperty('--accent-line', b.accentLine);
+    // Event Delegation for Navigation
+    document.querySelector('.nav-grid').addEventListener('click', (e) => {
+        const card = e.target.closest('.nav-card');
+        if (!card) return;
 
-  const splitPills = b.overview.split.map(s=>`<span class="pill"><b>${s.levels}</b> ${s.name}</span>`).join('');
-  document.getElementById('banner').innerHTML = `
-    <div class="banner-top">
-      <div>
-        <span class="eyebrow" style="text-align:left; margin-bottom:4px;">Build ${currentBuild}</span>
-        <h2><span class="codename">${b.codename}</span></h2>
-        <span class="banner-theme">${b.subtitle}</span>
-      </div>
-      <div style="text-align:right">
-        <div class="pill" style="margin-bottom:8px; border-color:var(--gold);">Role: <b>${b.role}</b></div>
-        <div class="pill">Difficulty: <b>${b.difficulty}</b></div>
-      </div>
-    </div>
-    <p class="tag">${b.overview.theme}</p>
-    <div class="pill-row">${splitPills}<span class="pill">Recommended: <b>${b.overview.recommended.split(' — ')[0]}</b></span></div>
-  `;
-}
+        const buildId = card.dataset.build;
+        const build = builds.find(b => b.id === buildId);
 
-/* ============================= RENDER: tabs ============================= */
-function renderTabs(){
-  document.getElementById('tabs').innerHTML = sections.map(s=>
-    `<button class="tab-btn ${s.id===currentSection?'active':''}" data-section="${s.id}">${s.label}</button>`
-  ).join('');
-}
-
-function setupTabs(){
-  const tabsContainer = document.getElementById('tabs');
-  tabsContainer.addEventListener('click', (e)=>{
-    const btn = e.target.closest('.tab-btn');
-    if(!btn) return;
-    currentSection = btn.dataset.section;
-    renderTabs();
-    renderContent();
-  });
-}
-
-/* ============================= RENDER: content dispatch ============================= */
-function renderContent(){
-  const b = builds[currentBuild];
-  const c = document.getElementById('content');
-  let html = '';
-  if(currentSection==='overview') html = renderOverview(b);
-  else if(currentSection==='abilities') html = renderAbilities(b);
-  else if(currentSection==='leveling') html = renderLeveling(b);
-  else if(currentSection==='gear') html = renderGear(b);
-  else if(currentSection==='strategy') html = renderStrategy(b);
-  else if(currentSection==='notes') html = renderNotes(b);
-  c.innerHTML = `<div class="section-fade">${html}</div>`;
-  attachInteractivity();
-}
-
-function shadeList(n){
-  const base = [1, 0.7, 0.45, 0.28];
-  return base.slice(0,n);
-}
-
-function renderOverview(b){
-  const total = b.overview.split.reduce((a,s)=>a+s.levels,0);
-  const shades = shadeList(b.overview.split.length);
-  const bar = b.overview.split.map((s,i)=>
-    `<div class="split-seg" style="width:${(s.levels/total*100).toFixed(1)}%; background:${b.accent}; opacity:${shades[i]};" title="${s.name} — ${s.levels} levels"></div>`
-  ).join('');
-  const legend = b.overview.split.map((s,i)=>
-    `<div><span class="dot" style="background:${b.accent}; opacity:${shades[i]};"></span>${s.name} — ${s.levels} lvl${s.levels>1?'s':''}</div>`
-  ).join('');
-
-  return `
-    <h3 class="block-title">Playstyle</h3>
-    <p class="lede">${b.overview.playstyle}</p>
-
-    <div class="pc-grid">
-        <div class="pc-box pros">
-            <h4>Strengths</h4>
-            <ul>${b.overview.pros.map(p=>`<li>${p}</li>`).join('')}</ul>
-        </div>
-        <div class="pc-box cons">
-            <h4>Weaknesses</h4>
-            <ul>${b.overview.cons.map(c=>`<li>${c}</li>`).join('')}</ul>
-        </div>
-    </div>
-
-    <h3 class="block-title">Recommended Companion</h3>
-    <div class="companion-card">
-        <img src="${b.portrait}" alt="${b.overview.recommended.split(' — ')[0]}" class="companion-portrait">
-        <div class="companion-info">
-            <h4>${b.overview.recommended.split(' — ')[0]}</h4>
-            <p>${b.overview.recommended.split(' — ')[1] || b.overview.recommended}</p>
-        </div>
-    </div>
-
-    <h3 class="block-title">Final Class Split — Level 12</h3>
-    <div class="split-bar">${bar}</div>
-    <div class="split-legend">${legend}</div>
-
-    <h3 class="block-title">Racial Options</h3>
-    <div class="info-grid">
-      ${b.overview.races.map(r=>`
-        <div class="info-card">
-            <div class="k">${r.name}</div>
-            <div class="v">${r.note}</div>
-        </div>
-      `).join('')}
-    </div>
-  `;
-}
-
-function renderAbilities(b){
-  return `
-    <h3 class="block-title">Starting Ability Scores</h3>
-    <div class="ability-grid">
-      ${b.abilities.map(a=>{
-        const bonusStr = a.bonus ? `<span class="ability-bonus">(+${a.bonus})</span>` : '';
-        return `
-        <div class="ability-card">
-          <div class="ability-name">${a.name}</div>
-          <div class="ability-score">${a.score}${bonusStr}</div>
-          <div class="ability-reason">${a.reason}</div>
-        </div>
-      `}).join('')}
-    </div>
-    <div class="note-box">
-        <h4>Ability Score Assignment</h4>
-        <p>At Level 1, assign your base points as shown above. The +1 and +2 icons denote where to place your racial/starting bonuses.</p>
-    </div>
-  `;
-}
-
-function renderLeveling(b){
-  return `
-    <h3 class="block-title">Level-by-Level Progression</h3>
-    <div class="timeline">
-      ${b.leveling.map((l,i)=>`
-        <div class="lvl-node ${i===0?'open':''}">
-          <button class="lvl-head">
-            <span class="range">${l.range}</span>
-            <span class="chev">▶</span>
-          </button>
-          <div class="lvl-body">
-            <div class="lvl-body-inner">${l.html}</div>
-          </div>
-        </div>
-      `).join('')}
-    </div>
-  `;
-}
-
-function renderGear(b){
-  return `
-    <h3 class="block-title">Equipment Guide</h3>
-    ${b.gear.map(group => `
-        <div class="gear-act-block">
-            <h4 style="font-family:'Cinzel',serif; color:var(--gold); margin-bottom:16px; border-bottom: 1px solid var(--border-soft); padding-bottom:8px;">${group.title}</h4>
-            ${group.intro ? `<p class="lede">${group.intro}</p>` : ''}
-            <div class="gear-grid">
-                ${group.items.map(item => `
-                    <div class="gear-card rarity-${item.rarity || 'common'}">
-                        <div class="gear-header">
-                            <div class="gear-img-wrap">
-                                <img src="${item.image}" alt="${item.item}" class="gear-img">
-                            </div>
-                            <div class="gear-title-row">
-                                <span class="gear-slot">${item.slot}</span>
-                                <div class="gear-name">${item.item}</div>
-                            </div>
-                        </div>
-                        <span class="gear-location">📍 ${item.location}</span>
-                        <div class="gear-desc">${item.note}</div>
-                        <a href="${item.wiki}" target="_blank" class="gear-wiki-btn">
-                            View on Wiki ↗
-                        </a>
-                    </div>
-                `).join('')}
-            </div>
-        </div>
-    `).join('')}
-  `;
-}
-
-function renderStrategy(b){
-  return `
-    <h3 class="block-title">Combat Strategy</h3>
-    ${b.strategy.map(s => `
-        <div class="note-box">
-            <h4>${s.title}</h4>
-            <p>${s.html}</p>
-        </div>
-    `).join('')}
-  `;
-}
-
-function renderNotes(b){
-  return `
-    <h3 class="block-title">Key Takeaways</h3>
-    <div class="takeaway-list">
-      ${b.takeaways.map(t=>`
-        <div class="note-box" style="margin: 10px 0;">
-            <p>${t}</p>
-        </div>
-      `).join('')}
-    </div>
-  `;
-}
-
-/* ============================= INTERACTIVITY ============================= */
-function attachInteractivity(){
-  document.querySelectorAll('.lvl-head').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-        const node = btn.closest('.lvl-node');
-        const isOpen = node.classList.contains('open');
-
-        // Close others
-        document.querySelectorAll('.lvl-node').forEach(n => n.classList.remove('open'));
-
-        if (!isOpen) {
-            node.classList.add('open');
+        if (build) {
+            currentBuild = build;
+            currentAct = 'act1'; // Reset act on build change
+            updateActiveNav(card);
+            renderBuild(build);
         }
     });
-  });
-}
 
-function fullRender(){
-  renderBuildSelect();
-  renderBanner();
-  renderTabs();
-  renderContent();
-}
+    // Tab Navigation
+    document.querySelector('.tab-nav').addEventListener('click', (e) => {
+        if (e.target.classList.contains('tab-btn')) {
+            updateActiveTab(e.target);
+            renderTabContent(e.target.dataset.tab);
+        }
+    });
 
-document.addEventListener('DOMContentLoaded', ()=>{
-  setupTabs();
-  fullRender();
+    function renderBuild(build) {
+        // Build Header
+        document.getElementById('build-name').textContent = build.name;
+        document.getElementById('build-role-text').textContent = build.role;
+        document.getElementById('build-desc').textContent = build.description;
+        document.getElementById('build-multiclass').textContent = build.multiclass;
+
+        // Races summary for header
+        const racesText = build.best_races.map(r => r.name).join(', ');
+        document.getElementById('build-race').textContent = 'Recommended: ' + (racesText || 'Any');
+
+        // Render Overview Tab by default
+        renderTabContent('overview');
+        updateActiveTab(document.querySelector('[data-tab="overview"]'));
+    }
+
+    function renderTabContent(tab) {
+        const content = document.getElementById('tab-content');
+        content.className = 'tab-pane active';
+        content.innerHTML = ''; // Clear previous
+
+        switch(tab) {
+            case 'overview':
+                renderOverview(currentBuild);
+                break;
+            case 'abilities':
+                renderAbilities(currentBuild);
+                break;
+            case 'leveling':
+                renderLeveling(currentBuild);
+                break;
+            case 'gear':
+                renderEquipment(currentBuild);
+                break;
+            case 'strategy':
+                renderStrategy(currentBuild);
+                break;
+            case 'takeaways':
+                renderTakeaways(currentBuild);
+                break;
+        }
+    }
+
+    function renderOverview(build) {
+        const content = document.getElementById('tab-content');
+        content.innerHTML = `
+            <div class="lore-section">
+                <h3 class="block-title">The Legend</h3>
+                <p class="lede">${build.lore}</p>
+            </div>
+            <div class="overview-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 32px;">
+                <div class="overview-card" style="background: var(--surface-2); border: 1px solid var(--border-soft); border-radius: 16px; padding: 24px;">
+                    <h3 style="font-family: 'Cinzel', serif; color: var(--gold); margin-top: 0;">Core Identity</h3>
+                    <p style="color: var(--text-dim); line-height: 1.6;">${build.description}</p>
+                </div>
+                <div class="overview-card" style="background: var(--surface-2); border: 1px solid var(--border-soft); border-radius: 16px; padding: 24px;">
+                    <h3 style="font-family: 'Cinzel', serif; color: var(--gold); margin-top: 0;">Party Role</h3>
+                    <p style="color: var(--text-dim); line-height: 1.6;">${build.role}</p>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderAbilities(build) {
+        const content = document.getElementById('tab-content');
+
+        let html = `
+            <h3 class="block-title">Target Ability Scores</h3>
+            <div class="ability-grid">
+        `;
+
+        build.abilities.forEach(ability => {
+            html += `
+                <div class="ability-card">
+                    <div class="ability-name">${ability.score}</div>
+                    <div class="ability-score">${ability.value}</div>
+                    <p class="ability-reason">${ability.reason}</p>
+                </div>
+            `;
+        });
+
+        html += `</div>
+            <h3 class="block-title">Best Races & Racial Utility</h3>
+            <div class="race-grid">
+        `;
+
+        build.best_races.forEach(race => {
+            html += `
+                <div class="race-card">
+                    <span class="race-name">${race.name}</span>
+                    <p class="race-utility">${race.utility}</p>
+                </div>
+            `;
+        });
+
+        html += `</div>`;
+        content.innerHTML = html;
+    }
+
+    function renderLeveling(build) {
+        const content = document.getElementById('tab-content');
+        let html = '';
+
+        if (build.variants) {
+            html += renderVariantSelector(build);
+        }
+
+        let levelingData = build.leveling;
+        if (build.id === 'godblade') {
+            levelingData = build[`leveling_${selectedVariants.multiclass}`] || build.leveling;
+        }
+
+        html += '<div class="leveling-timeline">';
+        levelingData.forEach(step => {
+            html += `
+                <div class="level-node">
+                    <div class="level-header">
+                        <span class="level-num">${step.level}</span>
+                        <span class="level-title">${step.title}</span>
+                        <span class="level-toggle">▶</span>
+                    </div>
+                    <div class="level-details">
+                        <p>${step.description}</p>
+                    </div>
+                </div>
+            `;
+        });
+        html += '</div>';
+
+        content.innerHTML = html;
+
+        // Add expansion listeners
+        content.querySelectorAll('.level-header').forEach(header => {
+            header.addEventListener('click', () => {
+                header.parentElement.classList.toggle('expanded');
+            });
+        });
+
+        attachVariantListeners();
+    }
+
+    function renderEquipment(build) {
+        const content = document.getElementById('tab-content');
+        let html = '';
+
+        if (build.variants) {
+            html += renderVariantSelector(build);
+        }
+
+        html += `
+            <div class="sub-tabs">
+                <button class="sub-tab-btn ${currentAct === 'act1' ? 'active' : ''}" data-act="act1">Act I</button>
+                <button class="sub-tab-btn ${currentAct === 'act2' ? 'active' : ''}" data-act="act2">Act II</button>
+                <button class="sub-tab-btn ${currentAct === 'act3' ? 'active' : ''}" data-act="act3">Act III</button>
+            </div>
+            <div class="gear-grid">
+        `;
+
+        let equipmentData = build.equipment;
+        if (build.id === 'godblade') {
+            equipmentData = build[`equipment_${selectedVariants.gear}`] || build.equipment;
+        }
+
+        const items = equipmentData[currentAct];
+        if (items) {
+            items.forEach(item => {
+                const rarityClass = `rarity-${item.rarity}`;
+                const wikiUrl = `https://bg3.wiki/wiki/${item.name.replace(/ /g, '_')}`;
+                html += `
+                    <div class="gear-card ${rarityClass}">
+                        <div class="item-icon-wrapper">
+                            <img src="assets/gear/${item.name.toLowerCase().replace(/ /g, '-')}.png"
+                                 onerror="this.src='assets/gear/placeholder.png'"
+                                 alt="${item.name}">
+                        </div>
+                        <div class="item-info">
+                            <span class="item-slot">${item.slot}</span>
+                            <h4 class="item-name">${item.name}</h4>
+                            <p class="item-location"><span class="loc-pin">📍</span> ${item.location}</p>
+                            ${item.note ? `<p class="item-note">${item.note}</p>` : ''}
+                            <a href="${wikiUrl}" target="_blank" class="wiki-link">View on Wiki ↗</a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        html += '</div>';
+
+        if (build.alt_gear) {
+            html += `
+                <div class="alternatives-section">
+                    <h3><span class="accent-diamond"></span> Alternative Gear Options</h3>
+                    <div class="alt-grid">
+            `;
+            build.alt_gear.forEach(alt => {
+                html += `
+                    <div class="alt-card">
+                        <h4>${alt.title}</h4>
+                        <p>${alt.description}</p>
+                    </div>
+                `;
+            });
+            html += '</div></div>';
+        }
+
+        content.innerHTML = html;
+
+        // Sub-tab listeners
+        content.querySelector('.sub-tabs').addEventListener('click', (e) => {
+            if (e.target.classList.contains('sub-tab-btn')) {
+                currentAct = e.target.dataset.act;
+                renderEquipment(build);
+            }
+        });
+
+        attachVariantListeners();
+    }
+
+    function renderStrategy(build) {
+        const content = document.getElementById('tab-content');
+        let html = `
+            <div class="strategy-panel">
+                <h3 class="block-title">Combat Strategy</h3>
+                <p class="lede">${build.strategy}</p>
+            </div>
+        `;
+
+        if (build.arcane_shots) {
+            html += `
+                <h3 class="block-title">Arcane Shot Tier List</h3>
+                <div class="tier-list">
+                    <div class="tier-row tier-god">
+                        <div class="tier-label">S</div>
+                        <div class="tier-content">
+                            ${build.arcane_shots.god.map(shot => `
+                                <div class="shot-card">
+                                    <h5>${shot.name}</h5>
+                                    <p>${shot.effect}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="tier-row tier-good">
+                        <div class="tier-label">A</div>
+                        <div class="tier-content">
+                            ${build.arcane_shots.good.map(shot => `
+                                <div class="shot-card">
+                                    <h5>${shot.name}</h5>
+                                    <p>${shot.effect}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="tier-row tier-avoid">
+                        <div class="tier-label">F</div>
+                        <div class="tier-content">
+                            ${build.arcane_shots.avoid.map(shot => `
+                                <div class="shot-card">
+                                    <h5>${shot.name}</h5>
+                                    <p>${shot.effect}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        content.innerHTML = html;
+    }
+
+    function renderTakeaways(build) {
+        const content = document.getElementById('tab-content');
+        let html = '<h3 class="block-title">Key Build Takeaways</h3><ul class="takeaways-list">';
+        build.takeaways.forEach(item => {
+            html += `<li>${item}</li>`;
+        });
+        html += '</ul>';
+        html += '<div class="party-synergy-note"><h4>The Heroes of History Synergy</h4><p>This build was designed as part of a broken Honor Mode party. There is <b>exactly zero gear overlap</b> with the other members, and every build utilizes the party\'s shared <b>Resonance Stone</b> for massive psychic damage bursts.</p></div>';
+        content.innerHTML = html;
+    }
+
+    function renderVariantSelector(build) {
+        let html = '<div class="variant-selector">';
+
+        if (build.variants.multiclass) {
+            html += `
+                <div class="variant-group">
+                    <span class="variant-label">Multiclass Path</span>
+                    <div class="variant-btns">
+                        ${build.variants.multiclass.map(v => `
+                            <button class="variant-btn ${selectedVariants.multiclass === v.id ? 'active' : ''}" data-variant-type="multiclass" data-variant-id="${v.id}">${v.name}</button>
+                        `).join('')}
+                    </div>
+                    <div class="variant-info">${build.variants.multiclass.find(v => v.id === selectedVariants.multiclass).description}</div>
+                </div>
+            `;
+        }
+
+        if (build.variants.gear) {
+            html += `
+                <div class="variant-group">
+                    <span class="variant-label">Weapon Strategy</span>
+                    <div class="variant-btns">
+                        ${build.variants.gear.map(v => `
+                            <button class="variant-btn ${selectedVariants.gear === v.id ? 'active' : ''}" data-variant-type="gear" data-variant-id="${v.id}">${v.name}</button>
+                        `).join('')}
+                    </div>
+                    <div class="variant-info">${build.variants.gear.find(v => v.id === selectedVariants.gear).description}</div>
+                </div>
+            `;
+        }
+
+        html += '</div>';
+        return html;
+    }
+
+    function attachVariantListeners() {
+        const btns = document.querySelectorAll('.variant-btn');
+        btns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const type = e.target.dataset.variantType;
+                const id = e.target.dataset.variantId;
+                selectedVariants[type] = id;
+
+                // Re-render current tab
+                const activeTab = document.querySelector('.tab-btn.active').dataset.tab;
+                renderTabContent(activeTab);
+            });
+        });
+    }
+
+    function updateActiveNav(activeCard) {
+        document.querySelectorAll('.nav-card').forEach(c => c.classList.remove('active'));
+        activeCard.classList.add('active');
+    }
+
+    function updateActiveTab(activeTab) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        activeTab.classList.add('active');
+    }
 });

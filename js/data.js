@@ -1,435 +1,309 @@
-const builds = {
-  A: {
-    codename: "Arcane Dead Eye",
-    subtitle: "Arcane Archer Fighter",
-    tag: "Fighter / Cleric",
-    difficulty: "Easy",
-    role: "Crowd Control / Ranged Burst",
-    accent: "#4fa3d6",
-    accentSoft: "rgba(79,163,214,0.14)",
-    accentLine: "rgba(79,163,214,0.4)",
-    portrait: "https://bg3.wiki/w/images/8/86/Portrait_Lae'zel.png",
-    overview: {
-      theme: "The ultimate controller-archer. Fuses meticulous archery with forgotten schools of spellcraft to dictate the outcome of large battles.",
-      playstyle: "A high-utility carry that provides massive crowd control through magical arrows. Can fire up to 8 shots in a single turn by late game.",
-      pros: [
-        "Unmatched ranged crowd control (Banishing/Blinding)",
-        "Not gear dependent — powerful with just a bow",
-        "Insane action economy (Action Surge + War Priest)",
-        "Shadow Arrow + Resonance Stone synergy for massive damage"
-      ],
-      cons: [
-        "Limited Arcane Shot charges early on",
-        "Multi-ability dependent (Dexterity and Intelligence)"
-      ],
-      split: [
-        { name: "Arcane Archer Fighter", levels: 11 },
-        { name: "War Domain Cleric", levels: 1 }
-      ],
-      recommended: "Lae'zel — as a Githyanki Fighter, she has the perfect racial traits (Misty Step, Astral Knowledge) for this role.",
-      races: [
-        { name: "Githyanki", note: "Positioning superiority with Misty Step and skill flexibility with Astral Knowledge." },
-        { name: "Drow", note: "Superior Darkvision for long-range accuracy in dark environments." }
-      ]
+const builds = [
+    {
+        id: "arcane-deadeye",
+        name: "Arcane Dead Eye",
+        role: "Ranged CC / Burst Striker",
+        lore: "A silent, mysterious marksman who has been determining the outcomes of large-scale battles completely on its own. Fusing meticulous archery with forgotten spellcraft, channeling raw arcane energy through arrows. Each shot isn't just an arrow; it's a spell, a curse, a death sentence.",
+        description: "The ultimate battlefield controller. An ultra crowd-control carry who can dictate the outcomes of large-scale battles with a single arrow. Utilizes the Arcane Archer subclass to its absolute limit.",
+        multiclass: "11 Arcane Archer Fighter / 1 War Domain Cleric",
+        best_races: [
+            { name: "Githyanki", utility: "Positional supremacy with Misty Step, Astral Knowledge for skill versatility, Enhanced Leap." },
+            { name: "Drow", utility: "Superior Darkvision for long-range accuracy, CC denial, and useful innate spells." },
+            { name: "Wood Half-Elf", utility: "Extra movement speed and Fey Ancestry (CC resistance)." }
+        ],
+        abilities: [
+            { score: "Dexterity", value: "17 (+1)", reason: "Your primary stat for attack rolls, damage, Initiative, and Armor Class. Should be capped at 20 ASAP." },
+            { score: "Intelligence", value: "16", reason: "Determines the Spell DC for your Arcane Shots. Essential for ensuring your CC (like Banish) lands." },
+            { score: "Constitution", value: "14", reason: "Provides a healthy HP pool and helps with Concentration checks if you use spells like Divine Favor." },
+            { score: "Str/Wis/Cha", value: "10", reason: "Dump stats. Wisdom at 10 helps slightly with common saving throws." }
+        ],
+        leveling: [
+            { level: "1", title: "Fighter 1", description: "Archery Fighting Style (+2 Attack Rolls). Initial proficiency in Heavy Armor and all weapons. 16 Dex / 16 Int." },
+            { level: "2", title: "Fighter 2", description: "Action Surge. The core of your burst potential. Use once per short rest for a double action." },
+            { level: "3", title: "Arcane Archer 3", description: "<b>Arcane Shots:</b> Pick Banishing Arrow, Shadow Arrow, and Bursting Arrow. Gain Guidance cantrip (S-tier utility)." },
+            { level: "4", title: "Fighter 4", description: "Feat: Ability Improvement (Dex +2). Get to 18 (or 20 if using Hag's Hair)." },
+            { level: "5", title: "Fighter 5", description: "Extra Attack. Your first major power spike. Now making two shots per action." },
+            { level: "6", title: "Fighter 6", description: "Feat: Sharpshooter. Mandatory for +10 flat damage per shot. The accuracy penalty is offset by Archery style and gear." },
+            { level: "7", title: "Arcane Archer 7", description: "<b>Curving Shot:</b> Redirect missed arrows using a bonus action. <b>Magic Arrow:</b> Your arrows count as magical." },
+            { level: "8", title: "Fighter 8", description: "Feat: Ability Improvement (Dex +2). Cap Dexterity at 20." },
+            { level: "9", title: "Fighter 9", description: "Indomitable. Reroll a failed saving throw once per long rest." },
+            { level: "10", title: "Arcane Archer 10", description: "<b>More Arcane Shots:</b> Piercing Arrow and Grasping Arrow. Finalize your CC utility roster." },
+            { level: "11", title: "Fighter 11", description: "Improved Extra Attack (3 attacks per action). At this level, Action Surge grants 6 attacks." },
+            { level: "12", title: "War Cleric 1 (Dip)", description: "<b>War Priest:</b> Use bonus action for extra attacks (War Priest charges). <b>Spells:</b> Sanctuary, Shield of Faith, Divine Favor, Bless." }
+        ],
+        arcane_shots: {
+            god: [
+                { name: "Banishing Arrow", effect: "Charisma save. Removes threat for 2 turns. Massive momentum swing against bosses." },
+                { name: "Shadow Arrow", effect: "Wisdom save. Blinds target and deals Psychic damage. Synergizes with Resonance Stone." }
+            ],
+            good: [
+                { name: "Bursting Arrow", effect: "AoE Force damage in a circular radius. Great for grouped enemies and force-vulnerable objects." },
+                { name: "Piercing Arrow", effect: "AoE Line attack. Applies bow magical effects (like Frighten) to all targets hit." },
+                { name: "Grasping Arrow", effect: "Poison damage + Slashing damage if the target moves. Punishes forced movement or fleeing AI." },
+                { name: "Seeking Arrow", effect: "Guaranteed hit + Fairy Fire. God tier in Act 1 when accuracy is low." }
+            ],
+            avoid: [
+                { name: "Beguiling Arrow", effect: "Charmed is too weak and easily broken by AoE/collateral damage." },
+                { name: "Enfeebling Arrow", effect: "Passive and unreliable. Enemies check every turn to end the condition." }
+            ]
+        },
+        equipment: {
+            act1: [
+                { slot: "Weapon", name: "Jolt Shooter", rarity: "rare", location: "Waukeen's Rest", note: "Lightning charges for accuracy and damage." },
+                { slot: "Weapon (Alt)", name: "Bow of the Banshee", rarity: "rare", location: "Act 1 Merchant", note: "Apply Frightened to entire groups via Piercing Arrow." },
+                { slot: "Armor", name: "Adamantine Splint Armour", rarity: "very-rare", location: "Grymforge", note: "Best-in-slot sustain for early game." },
+                { slot: "Hands", name: "Gloves of Archery", rarity: "uncommon", location: "Goblin Camp", note: "+2 Damage with bows." },
+                { slot: "Boots", name: "Boots of Genial Striding", rarity: "uncommon", location: "Blighted Village", note: "Ignore difficult terrain." }
+            ],
+            act2: [
+                { slot: "Head", name: "Helm of Arcane Acuity", rarity: "uncommon", location: "Mason's Guild", note: "Stacks spell DC with every shot. Makes CC landing 100%." },
+                { slot: "Cloak", name: "Cloak of Elemental Absorption", rarity: "uncommon", location: "Last Light Inn", note: "Defensive sustain and bonus elemental damage." },
+                { slot: "Amulet", name: "Amulet of the Harpers", rarity: "rare", location: "Last Light Inn", note: "Shield spell for defense and Wisdom save advantage." },
+                { slot: "Ring", name: "Killer's Sweetheart", rarity: "rare", location: "Gauntlet of Shar", note: "Guaranteed critical hit once per rest." },
+                { slot: "Ring", name: "Ring of Mental Inhibition", rarity: "uncommon", location: "Ruined Battlefield", note: "Applies Mental Fatigue to enemies who fail saves." }
+            ],
+            act3: [
+                { slot: "Weapon", name: "Gontr Mael", rarity: "legendary", location: "Steel Watch Foundry", note: "Legendary Bow. Provides Haste and Celestial Light." },
+                { slot: "Armor", name: "Helldusk Armour", rarity: "legendary", location: "House of Hope", note: "Ultimate sustain and damage resistance." },
+                { slot: "Hands", name: "Legacy of the Masters", rarity: "very-rare", location: "Dammon (Forge)", note: "+2 to Attack and Damage rolls." },
+                { slot: "Head", name: "Mask of Soul Perception", rarity: "very-rare", location: "Devil's Fee", note: "+2 to Attack, Initiative, and Perception." },
+                { slot: "Melee", name: "Ambusher", rarity: "rare", location: "Rivington", note: "+1d6 damage vs targets that haven't acted yet." },
+                { slot: "Melee", name: "Knife of the Undermountain King", rarity: "very-rare", location: "Creche Y'llek", note: "Stat stick for easier crits and damage rerolls." }
+            ]
+        },
+        strategy: "Use <b>Banishing Arrow</b> to remove the biggest threat from the board for 2 turns. Combo <b>Shadow Arrow</b> with the party's <b>Resonance Stone</b> to double its psychic damage. Use <b>Piercing Arrow</b> with <b>Bow of the Banshee</b> to mass-frighten enemies in a line. With Action Surge and War Priest charges, you can reach 7-8 attacks in one turn.",
+        takeaways: [
+            "Arcane Shots use Intelligence for DC, but Dexterity for damage.",
+            "Can reach 7-8 attacks in a single turn with Action Surge and Haste.",
+            "Complete battlefield dominance through banish, blind, and frighten."
+        ],
+        alt_gear: [
+            { title: "Titanstring Variant", description: "Use <b>Titanstring Bow</b> + <b>Club of Hill Giant Strength</b> (or Elixirs) to scale damage off Strength." }
+        ]
     },
-    abilities: [
-      { name: "Dexterity", score: 16, bonus: 2, reason: "Drives attack accuracy, damage, and initiative." },
-      { name: "Intelligence", score: 16, bonus: 1, reason: "Determines the Spell DC for Arcane Shots like Banishment." },
-      { name: "Constitution", score: 14, reason: "Standard HP and concentration support." },
-      { name: "Wisdom", score: 10, reason: "Base for perception/saves." },
-      { name: "Strength", score: 8, reason: "Not needed (unless using Titanstring path)." },
-      { name: "Charisma", score: 8, reason: "Not needed." }
-    ],
-    leveling: [
-      { range: "Fighter — Levels 1–2", html: `<strong>Fighting Style:</strong> Archery (+2 to hit).<br><strong>Action Surge:</strong> The core of your 'Rage Burst' — allows double actions once per short rest.`},
-      { range: "Level 3 — Arcane Shots", html: `
-        Pick 3 shots.
-        <ul>
-          <li><strong>Banishing Arrow (God Tier):</strong> Charisma save. Disappears the threat for 2 turns.</li>
-          <li><strong>Shadow Arrow (God Tier):</strong> Wisdom save. Blinds target and deals Psychic damage.</li>
-          <li><strong>Bursting Arrow (Good):</strong> Force AoE. Great for groups.</li>
-        </ul>
-        <strong>Avoid:</strong> Beguiling and Enfeebling arrows — their impact is too low.`},
-      { range: "Level 4", html: `<strong>Feat: Ability Improvement (+2 Dex)</strong>. Do not take Sharpshooter yet; you need the base accuracy first.`},
-      { range: "Level 5", html: `<strong>Extra Attack:</strong> You now fire twice per action. 4 times with Action Surge.`},
-      { range: "Level 6", html: `<strong>Feat: Sharpshooter</strong>. Now that your Dex is high, the +10 damage is worth the -5 penalty.`},
-      { range: "Levels 7–10", html: `
-        <strong>Curving Shot:</strong> If you miss, use a bonus action to reroll the attack against a different target.
-        <br><strong>L8 Feat:</strong> +2 Dex (Reach 20).
-        <br><strong>L10:</strong> Finalize shot roster (Banishing, Shadow, Bursting, Piercing, Grasping).`},
-      { range: "Level 11", html: `<strong>Triple Attack:</strong> Innate 3 attacks per action. 6 with Action Surge.`},
-      { range: "Level 12 — Cleric Dip", html: `
-        <strong>War Domain:</strong> Adds War Priest charges (Bonus Action attacks).
-        <br><strong>Spells:</strong> Sanctuary (survival) and Divine Favor (damage).
-        <br><strong>Final Action Economy:</strong> 3 (Extra Attack) + 3 (Action Surge) + 1 (War Priest) + 1 (Haste) = 8 shots.`}
-    ],
-    gear: [
-      {
-        title: "The Bow Progression",
-        items: [
-          { slot: "Early Game", item: "Joltshooter", rarity: "rare", image: "https://bg3.wiki/w/images/d/d9/The_Joltshooter_Icon.png", location: "Waukeen's Rest reward", wiki: "https://bg3.wiki/wiki/The_Joltshooter", note: "Builds Lightning Charges for damage/accuracy." },
-          { slot: "Mid Game", item: "Bow of the Banshee", rarity: "rare", image: "https://bg3.wiki/w/images/d/dd/Shortbow_PlusOne_Icon.png", location: "Sold by Corsair Greymon", wiki: "https://bg3.wiki/wiki/Bow_of_the_Banshee", note: "Frightens groups via Piercing Arrow synergy." },
-          { slot: "End Game", item: "Gontr Mael", rarity: "legendary", image: "https://bg3.wiki/w/images/d/de/Gontr_Mael_Icon.png", location: "Steel Watcher Titan", wiki: "https://bg3.wiki/wiki/Gontr_Mael", note: "Legendary +3 bow, grants Celestial Haste." }
+    {
+        id: "hexwing-phantom",
+        name: "Hexwing Phantom",
+        role: "Scout / Melee Striker",
+        lore: "A bully on the battlefield, described by opponents as 'disgusting' due to his extensive use of dirty tricks. Making packs with the devil never works out truly favorably, but he befriended a swarm of eerie moths with mysterious psychic powers that now help him in battle.",
+        description: "An elusive supernatural master duelist who dances between shadows, curses, and flurries of eerie moths. Master of tricks whose fighting style resembles a performance.",
+        multiclass: "4 Swashbuckler Rogue / 5 Hexblade Warlock / 3 Swarmkeeper Ranger",
+        best_races: [
+            { name: "Wyll (Origin)", utility: "The thematic face of the build. Charisma scaling fits perfectly." },
+            { name: "Wood Elf / Half-Elf", utility: "Extra mobility is king for a build that thrives on hit-and-run." }
+        ],
+        abilities: [
+            { score: "Charisma", value: "16", reason: "Primary stat after level 5. Scales weapon damage, Dirty Tricks DC, and Eldritch Blast." },
+            { score: "Dexterity", value: "16", reason: "Initial weapon scaling stat. Provides Initiative and AC. Park it here for the whole game." },
+            { score: "Constitution", value: "14", reason: "Vital for HP and maintaining concentration on spells like Hunger of Hadar." },
+            { score: "Wisdom", value: "12", reason: "Helps with common saving throws and skill checks for scouting." }
+        ],
+        leveling: [
+            { level: "1-2", title: "Rogue 1-2", description: "Cunning Action (Dash/Disengage). Expertise in Stealth and Perception for scouting." },
+            { level: "3", title: "Swashbuckler 3", description: "<b>Rakish Sneak Attack:</b> No advantage needed if alone. <b>Fancy Footwork:</b> No opportunity attacks after hitting." },
+            { level: "4", title: "Swashbuckler 4", description: "<b>Dirty Tricks:</b> Flick of the Wrist (Disarm), Sand Toss (Blind). Feat: Ability Improvement (Cha +2)." },
+            { level: "5", title: "Hexblade 1", description: "<b>Bind Hex Weapon:</b> Scale weapon with Charisma. Gain <b>Shield</b> and <b>Booming Blade</b>." },
+            { level: "6", title: "Hexblade 2", description: "<b>Invocations:</b> Agonizing Blast, Repelling Blast for ranged dominance." },
+            { level: "7", title: "Hexblade 3", description: "Pact of the Blade. Gain Misty Step for mobility." },
+            { level: "8", title: "Hexblade 4", description: "Feat: <b>Great Weapon Master (GWM)</b>. Phalar Aluve is versatile and benefits when two-handed." },
+            { level: "9", title: "Hexblade 5", description: "<b>Deepened Pact:</b> Extra Attack. Unlock Level 3 spells like <b>Counterspell</b>." },
+            { level: "10", title: "Ranger 1", description: "<b>Ranger Knight:</b> Heavy Armor Proficiency. <b>Wasteland Wanderer: Fire</b> resistance." },
+            { level: "11", title: "Ranger 2", description: "Fighting Style: Defense (+1 AC). Gain Goodberries for free healing/amulet procs." },
+            { level: "12", title: "Swarmkeeper 3", description: "<b>Gathered Swarm (Moths):</b> Adds psychic damage (doubled by Resonance Stone), blinds, or provides free teleports." }
+        ],
+        equipment: {
+            act1: [
+                { slot: "Weapon", name: "Phalar Aluve", rarity: "rare", location: "Underdark", note: "Finesse/Versatile. Use two-handed with GWM. Shriek/Sing support." },
+                { slot: "Amulet", name: "Broodmother's Revenge", rarity: "uncommon", location: "Druid Grove", note: "+1d6 Poison damage when healed (synergizes with Goodberries)." },
+                { slot: "Hands", name: "Gloves of Dexterity", rarity: "very-rare", location: "Creche Y'llek", note: "Sets Dex to 18 for high AC and Initiative." }
+            ],
+            act2: [
+                { slot: "Ring", name: "Risky Ring", rarity: "rare", location: "Moonrise Towers", note: "Advantage on all attacks to offset GWM penalty." },
+                { slot: "Ring", name: "Ring of Arcane Synergy", rarity: "uncommon", location: "Creche Y'llek", note: "Adds Charisma mod to weapon damage after cantrips." },
+                { slot: "Boots", name: "Boots of Stormy Clamour", rarity: "uncommon", location: "Underdark", note: "Apply Reverberation on CC application." }
+            ],
+            act3: [
+                { slot: "Weapon", name: "Dancing Breeze", rarity: "very-rare", location: "Rivington", note: "Legendary Glaive (Finesse). Massive reach and Whirlwind Attack." },
+                { slot: "Head", name: "Birthright", rarity: "very-rare", location: "Sorcerous Sundries", note: "+2 Charisma (up to 22 with Mirror of Loss)." },
+                { slot: "Armor", name: "Armor of Persistence", rarity: "very-rare", location: "Dammon (Forge)", note: "Permanent Blade Ward and Resistance." },
+                { slot: "Cloak", name: "Cloak of Displacement", rarity: "rare", location: "Danthelon's Dancing Axe", note: "Enemies have disadvantage on attacks against you." },
+                { slot: "Hands", name: "Helldusk Gloves", rarity: "very-rare", location: "House of Hope", note: "+1d6 Fire damage and Bleed." },
+                { slot: "Bow", name: "The Dead Shot", rarity: "very-rare", location: "Fraygo's Flophouse", note: "Lowers crit threshold." }
+            ]
+        },
+        strategy: "Solo scout with <b>Fancy Footwork</b>. Use <b>Booming Blade</b>, then disarm with <b>Flick of the Wrist</b> (bonus action), pick up their weapon, and dip out safely. In Act 3, use <b>Moth Swarm</b> teleports to reposition. Synergizes with the party <b>Resonance Stone</b> via Psychic moth damage.",
+        takeaways: [
+            "Truly Single Ability Dependent (SAD) on Charisma after Level 5.",
+            "Can disarm enemies using a bonus action with higher success than Command.",
+            "Exceptional mobility: Reach weapon + Fancy Footwork + Moth Teleports."
         ]
-      },
-      {
-        title: "Supporting Gear",
-        items: [
-          { slot: "Head", item: "Mask of Soul Perception", rarity: "very-rare", image: "https://bg3.wiki/w/images/e/e1/Mask_of_Soul_Perception_Icon.png", location: "Devil's Fee, Act 3", wiki: "https://bg3.wiki/wiki/Mask_of_Soul_Perception", note: "+2 to attack rolls and initiative." },
-          { slot: "Gloves", item: "Legacy of the Masters", rarity: "very-rare", image: "https://bg3.wiki/w/images/b/b0/Gloves_Metal_C_Faded.png", location: "Dammon, Forge of the Nine", wiki: "https://bg3.wiki/wiki/Legacy_of_the_Masters", note: "+2 to attack and damage rolls." },
-          { slot: "Armor", item: "Helldusk Armour", rarity: "legendary", image: "https://bg3.wiki/w/images/c/cb/Helldusk_Armour_Icon.png", location: "House of Hope", wiki: "https://bg3.wiki/wiki/Helldusk_Armour", note: "Superior protection for your archer." },
-          { slot: "Ring", item: "Ring of Mental Inhibition", rarity: "uncommon", image: "https://bg3.wiki/w/images/e/e1/Ring_B_1_Faded.png", location: "Ruined Battlefield, Act 2", wiki: "https://bg3.wiki/wiki/Ring_of_Mental_Inhibition", note: "Enemies fail saves more often after being hit (Psychic synergy)." },
-          { slot: "Melee", item: "Knife of the Undermountain King", rarity: "very-rare", image: "https://bg3.wiki/w/images/9/9b/Knife_of_the_Undermountain_King_Icon.png", location: "A'jak'nir Jeera, Creche", wiki: "https://bg3.wiki/wiki/Knife_of_the_Undermountain_King", note: "Stat stick for crits and rerolling 1s/2s." }
-        ]
-      }
-    ],
-    strategy: [
-      {
-        title: "Banishment Momentum",
-        html: "Use Banishing Arrow on the boss or the most dangerous threat immediately. This turns an 'outnumbered' fight into a 'fair' cleanup while the boss is in another dimension."
-      },
-      {
-        title: "Mass Frighten",
-        html: "Combine <strong>Piercing Arrow</strong> with the <strong>Bow of the Banshee</strong>. Piercing Arrow applies the bow's on-hit effects to every enemy in its path, allowing you to frighten an entire pack with a single shot."
-      },
-      {
-        title: "The Psychic Nuke",
-        html: "Shadow Arrow deals Psychic damage. If a party member is carrying the Resonance Stone, this damage is doubled. Use Action Surge to blind and delete an entire group with psychic-boosted arrows."
-      }
-    ],
-    takeaways: [
-      "Banishing Arrow is the ultimate 'Oh Shift' button for Honor Mode.",
-      "Intelligence is not just for Wizards; it's what makes your bow's CC stick.",
-      "Wait for level 11 to multiclass; the third attack is too good to delay.",
-      "Piercing Arrow applies your bow's effects (like Frighten) to every target hit.",
-      "Curving Shot (L7) ensures that even a miss can be turned into a hit on a secondary target."
-    ]
-  },
-  B: {
-    codename: "Hexwing Phantom",
-    subtitle: "Swashbuckler / Hexblade / Swarmkeeper",
-    tag: "Rogue / Warlock / Ranger",
-    difficulty: "Moderate",
-    role: "Reconnaissance / Melee Skirmisher",
-    accent: "#c1519f",
-    accentSoft: "rgba(193,81,159,0.14)",
-    accentLine: "rgba(193,81,159,0.4)",
-    portrait: "https://bg3.wiki/w/images/6/6d/Portrait_Wyll.png",
-    overview: {
-      theme: "A supernatural master duelist who dances between shadows and curses, accompanied by a flurry of eerie moths.",
-      playstyle: "A high-mobility melee striker and reconnaissance expert. Uses 'Dirty Tricks' to bully enemies and moth swarms for chained psychic damage.",
-      pros: [
-        "Extreme mobility (Fancy Footwork + Moth teleports)",
-        "Disarms enemies on a bonus action (Flick of the Wrist)",
-        "Charisma-based SAD (Single Ability Dependent) build",
-        "Strong ranged (Eldritch Blast) and melee synergy"
-      ],
-      cons: [
-        "Complex multiclass split (4/5/3)",
-        "Requires specific order (Swashbuckler first) to come online early"
-      ],
-      split: [
-        { name: "Swashbuckler Rogue", levels: 4 },
-        { name: "Hexblade Warlock", levels: 5 },
-        { name: "Swarmkeeper Ranger", levels: 3 }
-      ],
-      recommended: "Wyll — the thematic mix of a Charisma duelist and a warlock pact fits him perfectly.",
-      races: [
-        { name: "Wood Elf / Half-Elf", note: "Maximum movement speed for hit-and-run tactics." }
-      ]
     },
-    abilities: [
-      { name: "Charisma", score: 16, bonus: 2, reason: "Scales your attacks (via Hexblade), spells, and Dirty Trick DC." },
-      { name: "Dexterity", score: 16, bonus: 1, reason: "Important for early levels, AC, and initiative." },
-      { name: "Constitution", score: 14, reason: "Sustain for frontlining." },
-      { name: "Wisdom", score: 12, reason: "Helps with saves and scouting checks." },
-      { name: "Strength", score: 8, reason: "Not needed." },
-      { name: "Intelligence", score: 8, reason: "Not needed." }
-    ],
-    leveling: [
-      { range: "Swashbuckler Rogue — Levels 1–4", html: `
-        <strong>L3 Swashbuckler:</strong> Rakish Sneak Attack (no advantage needed) + Fancy Footwork (no opportunity attacks after hitting).
-        <br><strong>L4 Dirty Tricks:</strong>
-        <ul>
-          <li><strong>Flick of the Wrist (BiS):</strong> Disarms enemy on a bonus action. Weapon-steal bully!</li>
-          <li><strong>Sand Toss:</strong> Blind target.</li>
-        </ul>
-        <strong>Feat:</strong> Charisma +2.`},
-      { range: "Hexblade Warlock — Levels 5–9", html: `
-        <strong>L5 Hexblade:</strong> Bind Pact Weapon (scales with Cha).
-        <br><strong>Spells:</strong> Shield, Armor of Agathys, Booming Blade.
-        <br><strong>L8 Feat: Great Weapon Master (GWM)</strong> — Works with Phalar Aluve (Versatile).
-        <br><strong>L9:</strong> Extra Attack from Pact of the Blade.`},
-      { range: "Swarmkeeper Ranger — Levels 10–12", html: `
-        <strong>L10:</strong> Heavy Armor proficiency (Ranger Knight).
-        <br><strong>L12 Moths:</strong> Your gathered swarm. Deals psychic damage (Resonance Stone synergy) or teleports you after attacks.
-        <br><strong>Sustain:</strong> Goodberries (bonus action) to proc Broodmother's Revenge.`}
-    ],
-    gear: [
-      {
-        title: "Act 1–2: The Versatile Duelist",
-        items: [
-          { slot: "Weapon", item: "Phalar Aluve", rarity: "rare", image: "https://bg3.wiki/w/images/8/89/Longsword_+1_Icon.png", location: "Underdark stone", wiki: "https://bg3.wiki/wiki/Phalar_Aluve", note: "Finesse versatile weapon — two-hand it for GWM damage while using Charisma." },
-          { slot: "Armlet", item: "Broodmother's Revenge", rarity: "uncommon", image: "https://bg3.wiki/w/images/4/48/Amulet_Necklace_F_Bronze_A_1_Faded.png", location: "Kagha", wiki: "https://bg3.wiki/wiki/Broodmother%27s_Revenge", note: "Adds poison to weapon after eating a Goodberry." },
-          { slot: "Ring", item: "Strange Conduit Ring", rarity: "uncommon", image: "https://bg3.wiki/w/images/e/e4/Strange_Conduit_Ring_Icon.png", location: "Inquisitor chamber", wiki: "https://bg3.wiki/wiki/Strange_Conduit_Ring", note: "Extra psychic damage while concentrating (Hex/Elemental Weapon)." }
+    {
+        id: "godblade",
+        name: "Godblade",
+        role: "Magic Tank / Melee Burst / Utility",
+        lore: "For approximately every 8,274 Bladesingers, one Godblade arises. A divine warrior with direct ties to the gods. The Godblade is the 0.001%, combining the elegant swordplay of a virtuoso with the destructive magic of a high mage and the holy wrath of a Paladin.",
+        description: "The evolution of the Bladesinger. Boasting over 40 AC and capable of 500+ damage in a turn. Not just tanky in the traditional sense, but through pure magical supremacy.",
+        multiclass: "10 Bladesinger Wizard / 2 Paladin (Oath of the Crown)",
+        best_races: [
+            { name: "Wood Elf / Half-Elf", utility: "Extra movement is vital for the Bladesinger's mobile playstyle." },
+            { name: "Half-Orc", utility: "Savage Attacker + Smite crits reach nuclear levels with Half-Orc passives." },
+            { name: "Dwarf", utility: "Enlarge spell for more damage and sustain." },
+            { name: "Githyanki", utility: "Astral Knowledge for skill checks and free utility spells." }
+        ],
+        abilities: [
+            { score: "Dexterity", value: "17 (+1)", reason: "Scales melee attacks, AC, and Initiative. Use Hag's Hair to reach 20 early." },
+            { score: "Intelligence", value: "16", reason: "Scales spell damage, AC (during Bladesong), and Con saves. Essential for the battlemage identity." },
+            { score: "Constitution", value: "14", reason: "Vital for HP and concentration. Capped at 23 later with Amulet of Greater Health." },
+            { score: "Wisdom", value: "10", reason: "Kept at 10 to help with common saving throws." }
+        ],
+        leveling_paladin: [
+            { level: "1", title: "Wizard 1", description: "Shield, Mage Armor, Magic Missile, Longstrider. Cantrips: Booming Blade." },
+            { level: "2", title: "Bladesinger 2", description: "<b>Bladesong:</b> Adds Int to AC and Con saves. <b>Bladesong Climax:</b> Massive heal or AoE nuke." },
+            { level: "3", title: "Wizard 3", description: "<b>Shadow Blade:</b> Primary psychic weapon. Upcast with L3/L5 slots for damage scaling." },
+            { level: "4", title: "Wizard 4", description: "Feat: Ability Improvement (Dex +2). Use Hag's Hair to reach 20 Dex." },
+            { level: "5", title: "Wizard 5", description: "<b>Haste:</b> Essential for extra actions. <b>Fireball</b> for AoE burst." },
+            { level: "6", title: "Wizard 6", description: "<b>Extra Attack:</b> Bladesinger version allows replacing one attack with a Cantrip (Booming Blade)." },
+            { level: "8", title: "Wizard 8", description: "Feat: <b>Savage Attacker</b>. Mandatory for rerolling Shadow Blade and Smite damage." },
+            { level: "10", title: "Bladesinger 10", description: "<b>Song of Defense:</b> Use spell slots to reduce incoming damage by 5x slot level." },
+            { level: "11-12", title: "Paladin 1-2", description: "<b>Divine Smites:</b> Add massive necrotic/radiant damage to hits. <b>Crown:</b> Goading Roar." }
+        ],
+        leveling_fighter: [
+            { level: "1-6", title: "Wizard 1-6", description: "Standard Bladesinger progression (Extra Attack at 6)." },
+            { level: "7-10", title: "Wizard 7-10", description: "Song of Defense and Level 5 spells (Hold Monster)." },
+            { level: "11", title: "Fighter 1", description: "Fighting Style: Defense (+1 AC). Second Wind." },
+            { level: "12", title: "Fighter 2", description: "<b>Action Surge:</b> Take another full action. Allows for 6 melee attacks in one turn with Haste." }
+        ],
+        leveling_monoclass: [
+            { level: "1-10", title: "Wizard 1-10", description: "Full Bladesinger progression." },
+            { level: "11", title: "Wizard 11", description: "Level 6 Spells: Chain Lightning, Disintegrate." },
+            { level: "12", title: "Wizard 12", description: "3rd Feat: War Caster or Alert. Maximum spell slots and preparation." }
+        ],
+        variants: {
+            multiclass: [
+                { id: "paladin", name: "Paladin Path (10/2)", description: "Peak Nova damage with Divine Smites. Maintains L6 spell slot for utility/upcasting." },
+                { id: "fighter", name: "Fighter Path (10/2)", description: "Action Surge for 6 attacks in one turn (with Haste). More consistent physical burst." },
+                { id: "monoclass", name: "Pure Wizard 12", description: "Maximum spells and a 3rd feat (War Caster/Alert). Highest utility." }
+            ],
+            gear: [
+                { id: "shadowblade", name: "Shadow Blade Path", description: "Uses Shadow Blade spell + Resonance Stone for double Psychic damage." },
+                { id: "traditional", name: "Traditional Duelist", description: "Uses Duelist's Prerogative and Bhaalist Armour for double Piercing damage." }
+            ]
+        },
+        equipment_shadowblade: {
+            act1: [
+                { slot: "Weapon", name: "Shadow Blade", rarity: "common", location: "Level 2 Spell", note: "Upcast with L3/L5 slots. Psychic damage." },
+                { slot: "Off-Hand", name: "Speedy Reply", rarity: "rare", location: "Risen Road", note: "Momentum on hit for mobility." },
+                { slot: "Off-Hand (Alt)", name: "Hunter's Dagger", rarity: "uncommon", location: "Goblin Camp", note: "Applies Rupture (damage on movement)." },
+                { slot: "Head", name: "Diadem of Arcane Synergy", rarity: "uncommon", location: "Creche Y'llek", note: "Adds Intelligence to weapon damage." },
+                { slot: "Armor", name: "Bloodguzzler's Garb", rarity: "uncommon", location: "Underdark", note: "Wrath (+1 damage) when taking damage." },
+                { slot: "Hands", name: "Bracers of Defense", rarity: "rare", location: "Blighted Village", note: "+2 AC while unarmored." },
+                { slot: "Ring", name: "Caustic Band", rarity: "uncommon", location: "Underdark", note: "+2 Acid damage per attack." },
+                { slot: "Ring", name: "Crusher's Ring", rarity: "rare", location: "Goblin Camp", note: "+3m Movement speed." },
+                { slot: "Amulet", name: "Periapt of Wound Closure", rarity: "rare", location: "Mountain Pass", note: "Maximized healing from Bladesong Climax." }
+            ],
+            act2: [
+                { slot: "Off-Hand", name: "Knife of the Undermountain King", rarity: "very-rare", location: "Creche Y'llek", note: "Crit threshold and damage rerolls." },
+                { slot: "Cloak", name: "Cloak of Protection", rarity: "uncommon", location: "Last Light Inn", note: "+1 AC and Saving Throws." },
+                { slot: "Hands", name: "Gloves of the Battlemage's Power", rarity: "uncommon", location: "Tollhouse", note: "Weapon hits stack Arcane Acuity." },
+                { slot: "Ring", name: "Strange Conduit Ring", rarity: "uncommon", location: "Creche", note: "+1d4 Psychic damage while concentrating." },
+                { slot: "Inventory", name: "Resonance Stone", rarity: "rare", location: "Mind Flayer Colony", note: "Doubles Psychic damage. Essential." }
+            ],
+            act3: [
+                { slot: "Off-Hand", name: "Rhapsody", rarity: "very-rare", location: "Cazador", note: "+3 Attack, Damage, and Spell DC." },
+                { slot: "Armor", name: "Robe of the Weave", rarity: "very-rare", location: "Ramazith's Tower", note: "+2 AC and Spell DC. Best in Slot." },
+                { slot: "Amulet", name: "Amulet of Greater Health", rarity: "very-rare", location: "House of Hope", note: "Sets Constitution to 23." },
+                { slot: "Ring", name: "Band of the Mystic Scoundrel", rarity: "rare", location: "Akabi", note: "Cast Illusion/Enchantment as bonus action." },
+                { slot: "Boots", name: "Helldusk Boots", rarity: "very-rare", location: "Gortash", note: "Ignore difficult terrain and teleport." },
+                { slot: "Bow", name: "Hell Rider Longbow", rarity: "rare", location: "Rivington", note: "+3 Initiative." }
+            ]
+        },
+        equipment_traditional: {
+            act1: [
+                { slot: "Weapon", name: "Knife of the Undermountain King", rarity: "very-rare", location: "Creche", note: "Primary weapon for traditional duelist." },
+                { slot: "Head", name: "Diadem of Arcane Synergy", rarity: "uncommon", location: "Creche", note: "Intelligence to damage." },
+                { slot: "Armor", name: "Bloodguzzler's Garb", rarity: "uncommon", location: "Underdark", note: "Early wrath stacks." }
+            ],
+            act2: [
+                { slot: "Weapon", name: "Infernal Rapier", rarity: "very-rare", location: "Wyll's Quest", note: "Scales with spellcasting ability." },
+                { slot: "Armor", name: "Potent Robe", rarity: "very-rare", location: "Last Light Inn", note: "Boosts cantrips (Booming Blade)." }
+            ],
+            act3: [
+                { slot: "Weapon", name: "Duellist's Prerogative", rarity: "legendary", location: "Lora's Quest", note: "Legendary Rapier. Bonus reactions and extra hits." },
+                { slot: "Armor", name: "Bhaalist Armour", rarity: "very-rare", location: "Murder Tribunal", note: "Aura of Murder: Doubles Piercing damage." },
+                { slot: "Off-Hand", name: "Rhapsody", rarity: "very-rare", location: "Cazador", note: "Stat stick for accuracy/damage." }
+            ]
+        },
+        strategy: "Maintain <b>Haste</b> and <b>Bladesong</b>. Use <b>Shadow Blade</b> + <b>Resonance Stone</b> to erase bosses. Use <b>Band of the Mystic Scoundrel</b> to cast <b>Hold Monster</b> as a bonus action after attacking. <b>Divine Smites</b> should be saved for Crits or high-priority burst.",
+        takeaways: [
+            "Can reach 40+ AC with Mirror Image, Shield, and Bladesong.",
+            "Capable of 500+ damage in a single turn on Honor Mode bosses.",
+            "Can scribe <b>any</b> wizard scroll: Artistry of War and Deva Summon are high priority."
         ]
-      },
-      {
-        title: "Act 3: Final Form",
-        items: [
-          { slot: "Weapon", item: "The Dancing Breeze", rarity: "very-rare", image: "https://bg3.wiki/w/images/1/15/Glaive_PlusTwo_Icon.png", location: "Exxvikyap, Rivington", wiki: "https://bg3.wiki/wiki/The_Dancing_Breeze", note: "Finesse Glaive — massive reach + GWM + Whirlwind AoE." },
-          { slot: "Helm", item: "Birthright", rarity: "very-rare", image: "https://bg3.wiki/w/images/1/1b/Birthright_Icon.png", location: "Sorcerous Sundries", wiki: "https://bg3.wiki/wiki/Birthright", note: "+2 Charisma (pushes to 22 with Mirror)." },
-          { slot: "Armor", item: "Armour of Persistence", rarity: "very-rare", image: "https://bg3.wiki/w/images/8/8b/Armour_of_Persistence_Icon.png", location: "Dammon, Forge of the Nine", wiki: "https://bg3.wiki/wiki/Armour_of_Persistence", note: "Permanent Resistance and Warding Bond for ultimate tanking." },
-          { slot: "Ring", item: "Risky Ring", rarity: "rare", image: "https://bg3.wiki/w/images/2/22/Ring_E_Gold_A_1_Faded.png", location: "Araj Oblodra, Moonrise", wiki: "https://bg3.wiki/wiki/Risky_Ring", note: "Guarantees crits/sneak attacks and offsets GWM penalty." }
-        ]
-      }
-    ],
-    strategy: [
-      {
-        title: "The Scout & Bully",
-        html: "Use Fancy Footwork to hit an enemy and run away safely without provoking opportunity attacks. Disarm them with Flick of the Wrist, pick up their weapon, and watch them struggle to punch you."
-      },
-      {
-        title: "Booming Disarm",
-        html: "Combo <strong>Booming Blade</strong> with <strong>Flick of the Wrist</strong>. You hit them with Booming Blade, disarm them on a bonus action, and then run away (Fancy Footwork). When they move to pick up their weapon, they trigger the Booming Blade movement damage."
-      },
-      {
-        title: "Moth Mobility",
-        html: "By level 12, your moths allow you to teleport after an action. This, combined with Rogue bonus-action dash and Fancy Footwork, makes you the most mobile character in the party."
-      }
-    ],
-    takeaways: [
-      "Flick of the Wrist is one of the strongest bonus actions in the game.",
-      "Phalar Aluve + GWM + Hexblade is the secret early-game power spike.",
-      "Moth damage is Psychic — it doubles with the Resonance Stone.",
-      "Eat a Goodberry every turn to keep your weapon poisoned via Broodmother's Revenge."
-    ]
-  },
-  C: {
-    codename: "Godblade",
-    subtitle: "Bladesinger Wizard / Paladin",
-    tag: "Wizard / Paladin",
-    difficulty: "Expert",
-    role: "Magic Tank / Melee Burst / Utility",
-    accent: "#d9b23c",
-    accentSoft: "rgba(217,178,60,0.14)",
-    accentLine: "rgba(217,178,60,0.4)",
-    portrait: "https://bg3.wiki/w/images/6/62/Wood_Elf_Default_Portrait.png",
-    overview: {
-      theme: "The 'chosen one' of the party. Fuses the destructive magic of a Wizard with the divine smites of a Paladin.",
-      playstyle: "A tanky frontline wizard who uses magic to achieve 35+ AC. Delivers absolute nuclear damage via Shadow Blade and Divine Smites.",
-      pros: [
-        "Insane survivability (35+ AC with Mage Armor/Mirror/Shield)",
-        "Highest single-turn burst (Nova) via Divine Smites",
-        "Full Wizard utility (can scribe any spell)",
-        "Shadow Blade + Resonance Stone synergy"
-      ],
-      cons: [
-        "Extremely resource hungry (burns through spell slots)",
-        "Vulnerable if Bladesong ends or concentration breaks"
-      ],
-      split: [
-        { name: "Bladesinger Wizard", levels: 10 },
-        { name: "Oath of the Crown Paladin", levels: 2 }
-      ],
-      recommended: "Custom Character — Wood Elf or Half-Orc for movement or crit bonuses.",
-      races: [
-        { name: "Half-Orc", note: "Incredible for the Godblade as it makes your Smite crits even more devastating." },
-        { name: "Wood Elf", note: "Extra movement for the mobile Bladesinger style." }
-      ]
     },
-    abilities: [
-      { name: "Dexterity", score: 17, bonus: 2, reason: "Primary attack stat and major AC contributor. Get to 20 via Ethel's Hair + Feat." },
-      { name: "Intelligence", score: 16, bonus: 1, reason: "Spell DC and AC bonus during Bladesong." },
-      { name: "Constitution", score: 14, reason: "Standard HP and concentration support." },
-      { name: "Wisdom", score: 10, reason: "Saves." },
-      { name: "Strength", score: 8, reason: "Not needed for this variant." },
-      { name: "Charisma", score: 8, reason: "Not needed for this variant." }
-    ],
-    leveling: [
-      { range: "Bladesinger Wizard — Levels 1–5", html: `
-        <strong>L2 Subclass:</strong> Bladesong grants massive AC and Con save bonus.
-        <br><strong>L3 Shadow Blade:</strong> Your primary weapon. Deals psychic damage.
-        <br><strong>L4 Feat:</strong> +2 Dex.
-        <br><strong>L5 Haste:</strong> Your first massive power spike. Extra action = more smites.`},
-      { range: "Level 6", html: `<strong>Extra Attack:</strong> Bladesinger's unique version allows you to swap one attack for a cantrip (Booming Blade).`},
-      { range: "Levels 7–10", html: `
-        <strong>L8 Feat: Savage Attacker</strong> — Reroll all those smite and shadow blade dice!
-        <br><strong>L9: Hold Monster</strong> — Setup for the auto-crit Nova.
-        <br><strong>L10 Song of Defence:</strong> Spend spell slots to block damage as a reaction.`},
-      { range: "Paladin — Levels 11–12", html: `
-        <strong>L12 Divine Smite:</strong> The Godblade is born. Every hit can now trigger a smite.
-        <br><strong>Oath of the Crown:</strong> Bonus action buff (+Proficiency to attack rolls).
-        <br><strong>Nova turn:</strong> Haste + Extra Attack = 3 weapon hits, all smiting.`}
-    ],
-    gear: [
-      {
-        title: "The Shadow Blade Path",
-        items: [
-          { slot: "Weapon", item: "Shadow Blade", rarity: "rare", image: "https://bg3.wiki/w/images/4/47/Shadow_Blade_Icon.png", location: "Cast via Level 2 spell", wiki: "https://bg3.wiki/wiki/Shadow_Blade_(Spell)", note: "Scales with Dex, deals psychic damage. Doubled by Resonance Stone." },
-          { slot: "Off Hand", item: "Rhapsody", rarity: "very-rare", image: "https://bg3.wiki/w/images/7/70/Rhapsody_Icon.png", location: "Cazador's Palace", wiki: "https://bg3.wiki/wiki/Rhapsody", note: "Stat stick for +3 to hit/damage/DC." },
-          { slot: "Inventory", item: "Resonance Stone", rarity: "rare", image: "https://bg3.wiki/w/images/b/b8/Resonance_Stone.png", location: "Mind Flayer Colony, Act 2", wiki: "https://bg3.wiki/wiki/Resonance_Stone", note: "MANDATORY. Doubles psychic damage for the whole party." }
+    {
+        id: "death-reaper",
+        name: "Death Reaper",
+        role: "Necrotic Spellcaster / Blaster",
+        lore: "They said necrotic damage was a meme. They haven't heard of the Death Reaper. Her powers transcend what mortals comprehend. Reaping life essences across the realms, she is currently wanted by every major faction with a 4.9 million gold bounty.",
+        description: "The ultimate necromancer. Transitions from a mid-line controller to a high-level spell blaster capable of casting Level 6 spells for free back-to-back.",
+        multiclass: "8 Death Cleric / 2 Necromancy Wizard / 2 Spores Druid",
+        best_races: [
+            { name: "Shadowheart (Origin)", utility: "Thematically perfect. Her story revolves around flirting with darkness." },
+            { name: "Wood Elf / Half-Elf", utility: "Movement speed is king for positioning Spirit Guardians." },
+            { name: "High Elf", utility: "Free Booming Blade cantrip for melee synergy." }
+        ],
+        abilities: [
+            { score: "Wisdom", value: "16", reason: "Primary stat for Cleric/Druid spells. Determines your Spell DC and healing power." },
+            { score: "Constitution", value: "16", reason: "High HP is vital since you'll be in melee range for Spirit Guardians. Helps with Concentration." },
+            { score: "Dexterity", value: "14", reason: "Provides Initiative and caps Medium Armor AC bonus." },
+            { score: "Intelligence", value: "12", reason: "Allows you to prepare more Wizard spells (Shield, Magic Missile) and scribe scrolls." }
+        ],
+        leveling: [
+            { level: "1", title: "Death Cleric 1", description: "<b>Reaper:</b> Cast necromancy cantrips (Toll the Dead, Bone Chill) on two targets. <b>Bursting Sinew:</b> Dex save based AoE." },
+            { level: "2", title: "Death Cleric 2", description: "<b>Touch of Death:</b> Channel Divinity for massive flat necrotic damage on hits. Combo with Inflict Wounds." },
+            { level: "4", title: "Death Cleric 4", description: "Feat: <b>War Caster</b>. Advantage on Concentration saves for Spirit Guardians." },
+            { level: "5", title: "Death Cleric 5", description: "<b>Spirit Guardians</b> (Necrotic). Core AoE pressure. Upcast for massive damage." },
+            { level: "6", title: "Death Cleric 6", description: "<b>Inescapable Destruction:</b> Necrotic damage ignores Resistance. Essential for Act 2." },
+            { level: "8", title: "Death Cleric 8", description: "Feat: <b>Dual Wielder</b>. <b>Divine Strike:</b> Use hand crossbows on bonus action to apply necrotic damage." },
+            { level: "10", title: "Necromancy Wizard 2", description: "<b>Grim Harvest:</b> Heal upon killing. Scribe utility like <b>Shield</b> and <b>Longstrider</b>." },
+            { level: "12", title: "Spores Druid 2", description: "<b>Halo of Spores:</b> Free necrotic chip damage. <b>Symbiotic Entity</b> for extra HP and damage." }
+        ],
+        equipment: {
+            act1: [
+                { slot: "Weapon", name: "Melf's First Staff", rarity: "uncommon", location: "Blighted Village", note: "+1 Spell Attack/DC." },
+                { slot: "Hands", name: "Hellrider's Pride", rarity: "uncommon", location: "Zevlor", note: "Applies Blade Ward on heal." },
+                { slot: "Ring", name: "The Whispering Promise", rarity: "uncommon", location: "Volo", note: "Applies Bless on heal." },
+                { slot: "Ring", name: "Ring of Protection", rarity: "rare", location: "Grove", note: "+1 AC and Saving Throws." },
+                { slot: "Boots", name: "Boots of Striding", rarity: "uncommon", location: "Goblin Camp", note: "Immunity to prone while concentrating." },
+                { slot: "Armor", name: "Scale Mail +2", rarity: "rare", location: "Goblin Camp", note: "High AC and Initiative." },
+                { slot: "Amulet", name: "Amulet of Misty Step", rarity: "rare", location: "Goblin Camp", note: "Reposition Spirit Guardians easily." },
+                { slot: "Head", name: "Holy Lance Helm", rarity: "rare", location: "Rosymorn", note: "Punish enemies who miss with Radiant damage." }
+            ],
+            act2: [
+                { slot: "Weapon", name: "Blood of Lathander", rarity: "legendary", location: "Creche", note: "The beacon for the 'Radiant Pivot' strategy." },
+                { slot: "Armor", name: "Luminous Armour", rarity: "rare", location: "Underdark", note: "Mass radiating orbs via Radiant Spirit Guardians." },
+                { slot: "Hands", name: "Luminous Gloves", rarity: "uncommon", location: "Potter's Chest", note: "Apply Radiant Orbs on radiant damage." },
+                { slot: "Ring", name: "Callous Glow Ring", rarity: "uncommon", location: "Gauntlet of Shar", note: "+2 damage to illuminated targets." },
+                { slot: "Ring", name: "Coruscation Ring", rarity: "uncommon", location: "Last Light Inn", note: "Radiant orbs on spell damage." },
+                { slot: "Cloak", name: "Flesh Melter Cloak", rarity: "rare", location: "House of Healing", note: "Acid damage to melee attackers." }
+            ],
+            act3: [
+                { slot: "Weapon", name: "Staff of Cherished Necromancy", rarity: "very-rare", location: "Mystic Carrion", note: "Cast Necromancy spells for free on kill. L6 Inflict Wounds spam." },
+                { slot: "Off-Hand", name: "Markoheshkir", rarity: "legendary", location: "Ramazith's Tower", note: "Kereska's Favour (Necrotic). Free L6 spells." },
+                { slot: "Amulet", name: "Amulet of the Devout", rarity: "very-rare", location: "Stormshore Tabernacle", note: "Extra Channel Divinity and +2 Spell DC." },
+                { slot: "Cloak", name: "Cloak of the Weave", rarity: "very-rare", location: "Ramazith's Tower", note: "+1 Spell DC and Attack." },
+                { slot: "Head", name: "Hood of the Weave", rarity: "very-rare", location: "Philgrave's Mansion", note: "+2 Spell DC and Attack." },
+                { slot: "Armor", name: "Armor of Agility", rarity: "very-rare", location: "Stormshore Armoury", note: "Full Dex modifier to AC." },
+                { slot: "Hands", name: "Gloves of Dexterity", rarity: "very-rare", location: "Creche", note: "Sets Dex to 18." },
+                { slot: "Hands (Alt)", name: "Gemini Gloves", rarity: "rare", location: "Devil's Fee", note: "Reaper-cast cantrips hit 4 targets once per rest." }
+            ]
+        },
+        strategy: "Use <b>Inflict Wounds</b> + <b>Touch of Death</b> for single-target nukes. <b>Radiant Pivot:</b> In Act 2, swap to Radiant Spirit Guardians and Luminous gear. In Act 3, use <b>Staff of Cherished Necromancy</b> to cast L6 spells for free. <b>Halo of Spores</b> provides free chip damage.",
+        takeaways: [
+            "Bypasses necrotic resistance automatically at Level 6.",
+            "Can cast Level 6 spells for free indefinitely in Act 3 after kills.",
+            "High sustain through Spores HP and Necromancy Wizard healing."
         ]
-      },
-      {
-        title: "The Battle Mage Gear",
-        items: [
-          { slot: "Head", item: "Diadem of Arcane Synergy", rarity: "uncommon", image: "https://bg3.wiki/w/images/9/92/Diadem_of_Arcane_Synergy_Icon.png", location: "Crèche Inquisitor", wiki: "https://bg3.wiki/wiki/Diadem_of_Arcane_Synergy", note: "Adds Int mod to weapon damage." },
-          { slot: "Chest", item: "Robe of the Weave", rarity: "very-rare", image: "https://bg3.wiki/w/images/0/0c/Robe_of_the_Weave_Icon.png", location: "Ramazith's Tower", wiki: "https://bg3.wiki/wiki/Robe_of_the_Weave", note: "+2 AC and spell accuracy." },
-          { slot: "Amulet", item: "Amulet of Greater Health", rarity: "very-rare", image: "https://bg3.wiki/w/images/2/27/Amulet_of_Greater_Health_Icon.png", location: "House of Hope", wiki: "https://bg3.wiki/wiki/Amulet_of_Greater_Health", note: "Sets Con to 23 for god-tier HP and concentration." },
-          { slot: "Ring", item: "Band of the Mystic Scoundrel", rarity: "very-rare", image: "https://bg3.wiki/w/images/2/22/Ring_E_Gold_A_1_Faded.png", location: "Akabi, Jungle of Chult", wiki: "https://bg3.wiki/wiki/Band_of_the_Mystic_Scoundrel", note: "Cast Hold Person/Monster as a bonus action after attacking." }
-        ]
-      }
-    ],
-    strategy: [
-      {
-        title: "The Nuclear Nova",
-        html: "Cast Hold Monster on the target. Then walk up and hit them 3 times (Extra Attack + Haste). Each hit is a guaranteed critical, and you can trigger a Level 4 Divine Smite on each. This can delete 500+ HP in one turn."
-      },
-      {
-        title: "Bladesong Climax",
-        html: "Build up healing charges by attacking with your weapon, or damage charges by casting spells. Use <strong>Bladesong Climax</strong> as a momentum swinger to heal your entire party from near-death to full HP in a single turn."
-      },
-      {
-        title: "Arcane Tanking",
-        html: "Between Mage Armor, 20 Dexterity, Bladesong, Mirror Image, and the Shield spell, you can reach 35-40 AC. Most bosses will only hit you on a Natural 20."
-      }
-    ],
-    takeaways: [
-      "Divine Smite caps at Level 4 spell slots for damage; don't waste L5/L6 slots on smites unless necessary.",
-      "Bladesong Climax can heal your entire party from near-death to full.",
-      "Shadow Blade deals Psychic damage — the Resonance Stone is your best friend.",
-      "Scribe every scroll you find; you are still a Level 10 Wizard at your core."
-    ]
-  },
-  D: {
-    codename: "Death Reaper",
-    subtitle: "Necrotic Death Cleric",
-    tag: "Cleric / Wizard / Druid",
-    difficulty: "Advanced",
-    role: "Spellcaster Blaster / Necromancer",
-    accent: "#7fae5c",
-    accentSoft: "rgba(127,174,92,0.14)",
-    accentLine: "rgba(127,174,92,0.4)",
-    portrait: "https://bg3.wiki/w/images/7/7e/Portrait_Shadowheart.png",
-    overview: {
-      theme: "The strongest necrotic damage user, transcending mortality with a mix of Death Domain Cleric, Necromancy Wizard, and Spores Druid.",
-      playstyle: "A flexible spellcaster that dominates the battlefield with necrotic AoE and devastating single-target nukes. High sustain through life-reaping mechanics.",
-      pros: [
-        "Massive necrotic damage output",
-        "Bypasses necrotic resistance (L6 feature)",
-        "Incredible sustain (heals when killing with necromancy)",
-        "High action economy with free spells in Act 3"
-      ],
-      cons: [
-        "Struggles with necrotic-immune enemies (especially Act 2)",
-        "Requires strategic management of 'Touch of Death' charges"
-      ],
-      split: [
-        { name: "Death Domain Cleric", levels: 8 },
-        { name: "Necromancy Wizard", levels: 2 },
-        { name: "Circle of Spores Druid", levels: 2 }
-      ],
-      note: "Levels 6+ of Death Cleric allow necrotic damage to ignore resistance, making this the only viable 'Pure Necro' build for Act 2's undead-heavy areas.",
-      recommended: "Shadowheart — available early, her story naturally fits the thematic 'identity crisis' of flirting with darkness.",
-      races: [
-        { name: "Wood Half-Elf / Wood Elf", note: "Movement is king for positioning Spirit Guardians." },
-        { name: "High Elf / High Half-Elf", note: "Free cantrip (Booming Blade) helps with melee flexibility." }
-      ]
-    },
-    abilities: [
-      { name: "Wisdom", score: 16, bonus: 2, reason: "Primary spellcasting stat for Cleric/Druid spells and DC." },
-      { name: "Constitution", score: 16, bonus: 1, reason: "Essential for HP and maintaining concentration on Spirit Guardians." },
-      { name: "Dexterity", score: 14, reason: "Boosts initiative and AC." },
-      { name: "Intelligence", score: 12, reason: "Enables Wizard multiclassing and extra prepared spells." },
-      { name: "Strength", score: 8, reason: "Not needed for this caster build." },
-      { name: "Charisma", score: 8, reason: "Not needed." }
-    ],
-    leveling: [
-      { range: "Death Cleric — Levels 1–2", html: `
-        <strong>Cantrips (Reaper target choice):</strong>
-        <ul>
-          <li><strong>Toll the Dead</strong> (Wis Save) — Best for low-Wis enemies.</li>
-          <li><strong>Bone Chill</strong> (Attack Roll) — Best for low-AC enemies.</li>
-          <li><strong>Bursting Sinew</strong> (Dex Save) — AoE potential, needs a corpse.</li>
-        </ul>
-        <strong>Reaper Subclass Feature:</strong> Cast necrotic cantrips at two targets for the price of one action.
-        <br><strong>Nuke Combo:</strong> Inflict Wounds + Touch of Death (Channel Divinity).`},
-      { range: "Level 3", html: `
-        <strong>Spiritual Weapon:</strong> Adds massive pressure. Choose weapon type based on enemy resistances (Trident/Spear for gaping wounds).
-        <br><strong>Sanctuary:</strong> Vital for protection/saving NPCs in Honor Mode.`},
-      { range: "Level 4", html: `
-        <strong>Feat: War Caster</strong> — Advantage on concentration (Spirit Guardians) and Shocking Grasp reaction.
-        <br><strong>Hold Person:</strong> Critical for humanoid control and guaranteed crits.`},
-      { range: "Level 5", html: `<strong>Spirit Guardians:</strong> The build's most iconic and deadly AoE concentration spell.`},
-      { range: "Level 6", html: `
-        <strong>Inescapable Destruction:</strong> Necrotic damage ignores resistance.
-        <br><strong>Glyph of Warding:</strong> Excellent situational AoE with various elemental types.
-        <br><strong>Note:</strong> This level is the power-spike that makes the build viable for Act 2.`},
-      { range: "Levels 7–8", html: `
-        <strong>Feat: Dual Wielder</strong> — Prepares you for dual staves in Act 3.
-        <br><strong>Divine Strike: Necrotic:</strong> Pairs with hand crossbows for bonus-action necrotic damage.`},
-      { range: "Levels 9–10 — Necromancy Wizard", html: `
-        <strong>Grim Harvest:</strong> Heals you whenever you kill with a necromancy spell.
-        <br><strong>Utility Spells:</strong> Shield, Longstrider, Magic Missile.`},
-      { range: "Levels 11–12 — Spores Druid", html: `
-        <strong>Halo of Spores:</strong> Free reaction chip damage every turn.
-        <br><strong>Symbiotic Entity:</strong> Temp HP + doubles Halo of Spores damage + adds 1d6 to melee.`}
-    ],
-    gear: [
-      {
-        title: "Act 1: Early Essentials",
-        items: [
-          { slot: "Weapon", item: "Melf's First Staff", rarity: "uncommon", image: "https://bg3.wiki/w/images/0/08/Magic_Staff_B_Icon.png", location: "Sold by Blurg, Underdark", wiki: "https://bg3.wiki/wiki/Melf%27s_First_Staff", note: "Boosts Spell DC and Attack Rolls." },
-          { slot: "Weapon (Alt)", item: "Sorrow", rarity: "rare", image: "https://bg3.wiki/w/images/e/ef/Glaive_PlusOne_Icon.png", location: "Hidden Vault, Druid Grove", wiki: "https://bg3.wiki/wiki/Sorrow", note: "Grants Sorrowful Lash (bonus action pull) which can proc Touch of Death." },
-          { slot: "Gloves", item: "Hellrider's Pride", rarity: "uncommon", image: "https://bg3.wiki/w/images/4/47/Gloves_Metal_1_Faded.png", location: "Zevlor reward", wiki: "https://bg3.wiki/wiki/Hellrider%27s_Pride", note: "Adds Blade Ward to your heals." },
-          { slot: "Ring", item: "The Whispering Promise", rarity: "uncommon", image: "https://bg3.wiki/w/images/a/aa/Ring_F_1_Faded.png", location: "Volo / various traders", wiki: "https://bg3.wiki/wiki/The_Whispering_Promise", note: "Adds Bless to your heals." },
-          { slot: "Amulet", item: "Amulet of Misty Step", rarity: "uncommon", image: "https://bg3.wiki/w/images/9/99/Amulet_of_Misty_Step_Icon.png", location: "Selunite Outpost, Underdark", wiki: "https://bg3.wiki/wiki/Amulet_of_Misty_Step", note: "Enables Spirit Guardians + Misty Step repositioning." },
-          { slot: "Helm", item: "Holy Lance Helm", rarity: "rare", image: "https://bg3.wiki/w/images/c/c5/Holy_Lance_Helm_Icon.png", location: "Rosymorn Monastery", wiki: "https://bg3.wiki/wiki/Holy_Lance_Helm", note: "Deals radiant damage when enemies miss." }
-        ]
-      },
-      {
-        title: "Act 2: The Radiant Pivot",
-        intro: "In the Shadow-cursed lands, necrotic damage is often resisted or ignored. Use radiant Spirit Guardians and focus on Radiant Orb gear to debuff accuracy.",
-        items: [
-          { slot: "Weapon", item: "The Blood of Lathander", rarity: "legendary", image: "https://bg3.wiki/w/images/f/f5/The_Blood_of_Lathander_Icon.png", location: "Rosymorn Monastery", wiki: "https://bg3.wiki/wiki/The_Blood_of_Lathander", note: "Blinds undead/fiends and grants Sunbeam." },
-          { slot: "Armor", item: "Luminous Armour", rarity: "rare", image: "https://bg3.wiki/w/images/8/83/Luminous_Armour_Icon.png", location: "Selunite Outpost chest", wiki: "https://bg3.wiki/wiki/Luminous_Armour", note: "Applies Radiating Orbs in an AoE when dealing radiant damage." },
-          { slot: "Gloves", item: "Luminous Gloves", rarity: "uncommon", image: "https://bg3.wiki/w/images/0/0c/Gloves_Metal_D_Faded.png", location: "Potter's Chest, Ruined Battlefield", wiki: "https://bg3.wiki/wiki/Luminous_Gloves", note: "Further stacks Radiating Orbs." },
-          { slot: "Ring", item: "Callous Glow Ring", rarity: "uncommon", image: "https://bg3.wiki/w/images/2/22/Ring_E_Gold_A_1_Faded.png", location: "Gauntlet of Shar", wiki: "https://bg3.wiki/wiki/Callous_Glow_Ring", note: "Adds +2 radiant damage vs illuminated targets." },
-          { slot: "Ring", item: "Coruscation Ring", rarity: "uncommon", image: "https://bg3.wiki/w/images/3/3d/Ring_A_Simple_Gold_1_Faded.png", location: "Last Light Inn cellar", wiki: "https://bg3.wiki/wiki/Coruscation_Ring", note: "Stacks orbs while you are illuminated (synergy with Lathander)." }
-        ]
-      },
-      {
-        title: "Act 3: The Death Reaper Supreme",
-        items: [
-          { slot: "Main Hand", item: "Staff of Cherished Necromancy", rarity: "very-rare", image: "https://bg3.wiki/w/images/5/5a/Staff_of_Cherished_Necromancy_Icon.png", location: "Looted from Mystic Carrion", wiki: "https://bg3.wiki/wiki/Staff_of_Cherished_Necromancy", note: "BEST IN SLOT. Gives disadvantage on necro saves and free spells on kill." },
-          { slot: "Off Hand", item: "Markoheshkir", rarity: "legendary", image: "https://bg3.wiki/w/images/8/87/Markoheshkir_Icon.png", location: "Ramazith's Tower", wiki: "https://bg3.wiki/wiki/Markoheshkir", note: "Kereska's Favour (Necrotic) chains free spells with the primary staff." },
-          { slot: "Amulet", item: "Amulet of the Devout", rarity: "very-rare", image: "https://bg3.wiki/w/images/c/c2/Amulet_of_the_devout.png", location: "Stormshore Tabernacle basement", wiki: "https://bg3.wiki/wiki/Amulet_of_the_devout", note: "+1 Channel Divinity and +2 Spell DC." },
-          { slot: "Helm", item: "Hood of the Weave", rarity: "very-rare", image: "https://bg3.wiki/w/images/5/57/Hood_of_the_Weave_Icon.png", location: "Mystic Carrion", wiki: "https://bg3.wiki/wiki/Hood_of_the_Weave", note: "Major boost to spell accuracy." },
-          { slot: "Armor", item: "Armour of Agility", rarity: "very-rare", image: "https://bg3.wiki/w/images/9/96/Armour_of_Agility_Icon.png", location: "Stormshore Armoury", wiki: "https://bg3.wiki/wiki/Armour_of_Agility", note: "High AC + full Dex bonus + saving throw bonus." },
-          { slot: "Gloves", item: "Gemini Gloves", rarity: "very-rare", image: "https://bg3.wiki/w/images/4/4e/Gemini_Gloves_Icon.png", location: "Helsik, Devil's Fee", wiki: "https://bg3.wiki/wiki/Gemini_Gloves", note: "Allows necrotic cantrips to hit even MORE targets." }
-        ]
-      }
-    ],
-    strategy: [
-      {
-        title: "The Identity Crisis (Act 2)",
-        html: "Don't be afraid to use Radiant damage in Act 2. Thematically, this is Shadowheart (or your character) meddling with morally 'good' light as a survival tactic in the Shadowlands, before fully committing to the power of Death in Act 3."
-      },
-      {
-        title: "Reaper Cantrip Choice",
-        html: "Reaper allows you to target two enemies with one action. Always examine your targets: Use <strong>Toll the Dead</strong> for high-AC/low-Wis enemies, and <strong>Bone Chill</strong> for low-AC enemies to prevent them from healing."
-      },
-      {
-        title: "Free Casting Engine",
-        html: "In Act 3, use the Staff of Cherished Necromancy to cast high-level spells for free. Kill a weak enemy with a cantrip to get a 'Life Essence', then spend it on a Level 6 Inflict Wounds or Dethrone."
-      }
-    ],
-    takeaways: [
-      "Always check enemy saves to choose the right necrotic cantrip (Toll vs Bone Chill vs Bursting).",
-      "Inflict Wounds + Touch of Death is your premier single-target burst.",
-      "Dual-wielding staves in Act 3 provides the ultimate spellcasting power.",
-      "Utilize summons (Raise Dead, Deva via scroll) to draw aggro while you reap."
-    ]
-  }
-};
+    }
+];
