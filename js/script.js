@@ -263,47 +263,56 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 
         if (build.arcane_shots) {
-            html += `
-                <h3 class="block-title">Arcane Shot Tier List</h3>
-                <div class="tier-list">
-                    <div class="tier-row tier-god">
-                        <div class="tier-label">S</div>
-                        <div class="tier-content">
-                            ${build.arcane_shots.god.map(shot => `
-                                <div class="shot-card">
-                                    <h5>${shot.name}</h5>
-                                    <p>${shot.effect}</p>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                    <div class="tier-row tier-good">
-                        <div class="tier-label">A</div>
-                        <div class="tier-content">
-                            ${build.arcane_shots.good.map(shot => `
-                                <div class="shot-card">
-                                    <h5>${shot.name}</h5>
-                                    <p>${shot.effect}</p>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                    <div class="tier-row tier-avoid">
-                        <div class="tier-label">F</div>
-                        <div class="tier-content">
-                            ${build.arcane_shots.avoid.map(shot => `
-                                <div class="shot-card">
-                                    <h5>${shot.name}</h5>
-                                    <p>${shot.effect}</p>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-            `;
+            html += renderTierList(build.arcane_shots, "Arcane Shot Tier List");
+        }
+
+        if (build.dirty_tricks) {
+            html += renderTierList(build.dirty_tricks, "Dirty Tricks & Swarm Tier List");
         }
 
         content.innerHTML = html;
+    }
+
+    function renderTierList(data, title) {
+        return `
+            <h3 class="block-title">${title}</h3>
+            <div class="tier-list">
+                <div class="tier-row tier-god">
+                    <div class="tier-label">S</div>
+                    <div class="tier-content">
+                        ${data.god.map(item => `
+                            <div class="shot-card">
+                                <h5>${item.name}</h5>
+                                <p>${item.effect}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                <div class="tier-row tier-good">
+                    <div class="tier-label">A</div>
+                    <div class="tier-content">
+                        ${data.good.map(item => `
+                            <div class="shot-card">
+                                <h5>${item.name}</h5>
+                                <p>${item.effect}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                ${data.avoid ? `
+                <div class="tier-row tier-avoid">
+                    <div class="tier-label">F</div>
+                    <div class="tier-content">
+                        ${data.avoid.map(item => `
+                            <div class="shot-card">
+                                <h5>${item.name}</h5>
+                                <p>${item.effect}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>` : ''}
+            </div>
+        `;
     }
 
     function renderTakeaways(build) {

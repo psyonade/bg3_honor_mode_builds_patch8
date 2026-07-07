@@ -12,15 +12,15 @@ const builds = [
             { name: "Wood Half-Elf", utility: "Extra movement speed and Fey Ancestry (CC resistance)." }
         ],
         abilities: [
-            { score: "Dexterity", value: "17 (+1)", reason: "Your primary stat for attack rolls, damage, Initiative, and Armor Class. Should be capped at 20 ASAP." },
-            { score: "Intelligence", value: "16", reason: "Determines the Spell DC for your Arcane Shots. Essential for ensuring your CC (like Banish) lands." },
-            { score: "Constitution", value: "14", reason: "Provides a healthy HP pool and helps with Concentration checks if you use spells like Divine Favor." },
-            { score: "Str/Wis/Cha", value: "10", reason: "Dump stats. Wisdom at 10 helps slightly with common saving throws." }
+            { score: "Dexterity", value: "16", reason: "Your primary stat for attack rolls, damage, Initiative, and Armor Class. The video recommends a balanced 16/16 split with Intelligence." },
+            { score: "Intelligence", value: "16", reason: "Determines the Spell DC for your Arcane Shots. Critical for ensuring your God-Tier CC (like Banish) lands reliably." },
+            { score: "Constitution", value: "14", reason: "Provides a healthy HP pool and helps with Concentration checks if you use spells like Shield of Faith." },
+            { score: "Wis/Cha/Str", value: "10/8/8", reason: "Dump stats. Higher Wisdom (10) helps with common saving throws against being CC'd yourself." }
         ],
         leveling: [
-            { level: "1", title: "Fighter 1", description: "Archery Fighting Style (+2 Attack Rolls). Initial proficiency in Heavy Armor and all weapons. 16 Dex / 16 Int." },
-            { level: "2", title: "Fighter 2", description: "Action Surge. The core of your burst potential. Use once per short rest for a double action." },
-            { level: "3", title: "Arcane Archer 3", description: "<b>Arcane Shots:</b> Pick Banishing Arrow, Shadow Arrow, and Bursting Arrow. Gain Guidance cantrip (S-tier utility)." },
+            { level: "1", title: "Fighter 1", description: "Archery Fighting Style (+2 Attack Rolls). Initial proficiency in Heavy Armor and all weapons. Starting stats: 16 Dex / 16 Int / 14 Con." },
+            { level: "2", title: "Fighter 2", description: "Action Surge. The core of your burst potential. Use once per short rest for a double action. At level 11, this means 6 attacks in one turn." },
+            { level: "3", title: "Arcane Archer 3", description: "<b>Arcane Shots:</b> Pick Banishing Arrow, Shadow Arrow, and Bursting Arrow. The video highlights that you can choose 3 at this stage." },
             { level: "4", title: "Fighter 4", description: "Feat: Ability Improvement (Dex +2). Get to 18 (or 20 if using Hag's Hair)." },
             { level: "5", title: "Fighter 5", description: "Extra Attack. Your first major power spike. Now making two shots per action." },
             { level: "6", title: "Fighter 6", description: "Feat: Sharpshooter. Mandatory for +10 flat damage per shot. The accuracy penalty is offset by Archery style and gear." },
@@ -29,7 +29,7 @@ const builds = [
             { level: "9", title: "Fighter 9", description: "Indomitable. Reroll a failed saving throw once per long rest." },
             { level: "10", title: "Arcane Archer 10", description: "<b>More Arcane Shots:</b> Piercing Arrow and Grasping Arrow. Finalize your CC utility roster." },
             { level: "11", title: "Fighter 11", description: "Improved Extra Attack (3 attacks per action). At this level, Action Surge grants 6 attacks." },
-            { level: "12", title: "War Cleric 1 (Dip)", description: "<b>War Priest:</b> Use bonus action for extra attacks (War Priest charges). <b>Spells:</b> Sanctuary, Shield of Faith, Divine Favor, Bless." }
+            { level: "12", title: "War Cleric 1 (Dip)", description: "<b>War Priest:</b> Use bonus action for extra attacks (War Priest charges). <b>Spells:</b> Sanctuary, Shield of Faith, Divine Favor, Bless. Finalizes the build as an 'Ultra Carry'." }
         ],
         arcane_shots: {
             god: [
@@ -49,29 +49,29 @@ const builds = [
         },
         equipment: {
             act1: [
-                { slot: "Weapon", name: "Jolt Shooter", rarity: "rare", location: "Waukeen's Rest", note: "Lightning charges for accuracy and damage." },
-                { slot: "Weapon (Alt)", name: "Bow of the Banshee", rarity: "rare", location: "Act 1 Merchant", note: "Apply Frightened to entire groups via Piercing Arrow." },
-                { slot: "Armor", name: "Adamantine Splint Armour", rarity: "very-rare", location: "Grymforge", note: "Best-in-slot sustain for early game." },
+                { slot: "Weapon", name: "Jolt Shooter", rarity: "rare", location: "Waukeen's Rest", note: "Lightning charges for accuracy and damage. Pick as quest reward." },
+                { slot: "Weapon (Alt)", name: "Bow of the Banshee", rarity: "rare", location: "Corsair Greymon (Grymforge)", note: "Apply Frightened to entire groups via Piercing Arrow. S-Tier in Act 1." },
+                { slot: "Armor", name: "Adamantine Splint Armour", rarity: "very-rare", location: "Grymforge (Forge)", note: "Best-in-slot sustain for early game. Reduces incoming damage." },
                 { slot: "Hands", name: "Gloves of Archery", rarity: "uncommon", location: "Goblin Camp", note: "+2 Damage with bows." },
                 { slot: "Boots", name: "Boots of Genial Striding", rarity: "uncommon", location: "Blighted Village", note: "Ignore difficult terrain." }
             ],
             act2: [
-                { slot: "Head", name: "Helm of Arcane Acuity", rarity: "uncommon", location: "Mason's Guild", note: "Stacks spell DC with every shot. Makes CC landing 100%." },
-                { slot: "Cloak", name: "Cloak of Elemental Absorption", rarity: "uncommon", location: "Last Light Inn", note: "Defensive sustain and bonus elemental damage." },
-                { slot: "Amulet", name: "Amulet of the Harpers", rarity: "rare", location: "Last Light Inn", note: "Shield spell for defense and Wisdom save advantage." },
+                { slot: "Head", name: "Helm of Arcane Acuity", rarity: "uncommon", location: "Mason's Guild (Act 2)", note: "Stacks spell DC with every shot. The core of your CC dominance." },
+                { slot: "Cloak", name: "Cloak of Elemental Absorption", rarity: "uncommon", location: "Last Light Inn (Talli)", note: "Defensive sustain and bonus elemental damage." },
+                { slot: "Amulet", name: "Amulet of the Harpers", rarity: "rare", location: "Quartermaster Talli", note: "Shield spell for defense and Wisdom save advantage." },
                 { slot: "Ring", name: "Killer's Sweetheart", rarity: "rare", location: "Gauntlet of Shar", note: "Guaranteed critical hit once per rest." },
                 { slot: "Ring", name: "Ring of Mental Inhibition", rarity: "uncommon", location: "Ruined Battlefield", note: "Applies Mental Fatigue to enemies who fail saves." }
             ],
             act3: [
                 { slot: "Weapon", name: "Gontr Mael", rarity: "legendary", location: "Steel Watch Foundry", note: "Legendary Bow. Provides Haste and Celestial Light." },
-                { slot: "Armor", name: "Helldusk Armour", rarity: "legendary", location: "House of Hope", note: "Ultimate sustain and damage resistance." },
-                { slot: "Hands", name: "Legacy of the Masters", rarity: "very-rare", location: "Dammon (Forge)", note: "+2 to Attack and Damage rolls." },
-                { slot: "Head", name: "Mask of Soul Perception", rarity: "very-rare", location: "Devil's Fee", note: "+2 to Attack, Initiative, and Perception." },
-                { slot: "Melee", name: "Ambusher", rarity: "rare", location: "Rivington", note: "+1d6 damage vs targets that haven't acted yet." },
+                { slot: "Armor", name: "Helldusk Armour", rarity: "legendary", location: "House of Hope (Raphael)", note: "Ultimate sustain and damage resistance. Wear regardless of proficiency." },
+                { slot: "Hands", name: "Legacy of the Masters", rarity: "very-rare", location: "Dammon (Lower City)", note: "+2 to Attack and Damage rolls." },
+                { slot: "Head", name: "Mask of Soul Perception", rarity: "very-rare", location: "Devil's Fee (Helsik)", note: "+2 to Attack, Initiative, and Perception. Alternative to Acuity helm." },
+                { slot: "Melee", name: "Ambusher", rarity: "rare", location: "Rivington General", note: "+1d6 damage vs targets that haven't acted yet. Amazing stat stick." },
                 { slot: "Melee", name: "Knife of the Undermountain King", rarity: "very-rare", location: "Creche Y'llek", note: "Stat stick for easier crits and damage rerolls." }
             ]
         },
-        strategy: "Use <b>Banishing Arrow</b> to remove the biggest threat from the board for 2 turns. Combo <b>Shadow Arrow</b> with the party's <b>Resonance Stone</b> to double its psychic damage. Use <b>Piercing Arrow</b> with <b>Bow of the Banshee</b> to mass-frighten enemies in a line. With Action Surge and War Priest charges, you can reach 7-8 attacks in one turn.",
+        strategy: "The Arcane Deadeye is a master of CC and burst. Use <b>Banishing Arrow</b> to remove the biggest threat from the board for 2 turns (no save in some patches, or high DC here). Combo <b>Shadow Arrow</b> with the party's <b>Resonance Stone</b> to double its psychic damage. Use <b>Piercing Arrow</b> with <b>Bow of the Banshee</b> to mass-frighten enemies in a line. With Action Surge and War Priest charges, you can reach 6-7 attacks in one turn (8 with Haste).",
         takeaways: [
             "Arcane Shots use Intelligence for DC, but Dexterity for damage.",
             "Can reach 7-8 attacks in a single turn with Action Surge and Haste.",
@@ -84,58 +84,71 @@ const builds = [
     {
         id: "hexwing-phantom",
         name: "Hexwing Phantom",
-        role: "Scout / Melee Striker",
+        role: "Scout / Melee Striker / Bully",
         lore: "A bully on the battlefield, described by opponents as 'disgusting' due to his extensive use of dirty tricks. Making packs with the devil never works out truly favorably, but he befriended a swarm of eerie moths with mysterious psychic powers that now help him in battle.",
         description: "An elusive supernatural master duelist who dances between shadows, curses, and flurries of eerie moths. Master of tricks whose fighting style resembles a performance.",
         multiclass: "4 Swashbuckler Rogue / 5 Hexblade Warlock / 3 Swarmkeeper Ranger",
         best_races: [
             { name: "Wyll (Origin)", utility: "The thematic face of the build. Charisma scaling fits perfectly." },
-            { name: "Wood Elf / Half-Elf", utility: "Extra mobility is king for a build that thrives on hit-and-run." }
+            { name: "Wood Elf / Wood Half-Elf", utility: "Extra mobility is king for a build that thrives on hit-and-run." },
+            { name: "Githyanki", utility: "Misty Step and Jump for absolute positional supremacy." }
         ],
         abilities: [
-            { score: "Charisma", value: "16", reason: "Primary stat after level 5. Scales weapon damage, Dirty Tricks DC, and Eldritch Blast." },
-            { score: "Dexterity", value: "16", reason: "Initial weapon scaling stat. Provides Initiative and AC. Park it here for the whole game." },
+            { score: "Charisma", value: "16", reason: "Primary stat. Scales weapon damage (via Hexblade), Dirty Tricks DC, and Warlock spells." },
+            { score: "Dexterity", value: "16", reason: "Primary early-game stat. Provides high Initiative and AC. The video recommends a 16/16 split." },
             { score: "Constitution", value: "14", reason: "Vital for HP and maintaining concentration on spells like Hunger of Hadar." },
-            { score: "Wisdom", value: "12", reason: "Helps with common saving throws and skill checks for scouting." }
+            { score: "Wisdom", value: "12", reason: "Helps with Wisdom saving throws to avoid being CC'd and scouting checks." }
         ],
         leveling: [
-            { level: "1-2", title: "Rogue 1-2", description: "Cunning Action (Dash/Disengage). Expertise in Stealth and Perception for scouting." },
-            { level: "3", title: "Swashbuckler 3", description: "<b>Rakish Sneak Attack:</b> No advantage needed if alone. <b>Fancy Footwork:</b> No opportunity attacks after hitting." },
-            { level: "4", title: "Swashbuckler 4", description: "<b>Dirty Tricks:</b> Flick of the Wrist (Disarm), Sand Toss (Blind). Feat: Ability Improvement (Cha +2)." },
-            { level: "5", title: "Hexblade 1", description: "<b>Bind Hex Weapon:</b> Scale weapon with Charisma. Gain <b>Shield</b> and <b>Booming Blade</b>." },
-            { level: "6", title: "Hexblade 2", description: "<b>Invocations:</b> Agonizing Blast, Repelling Blast for ranged dominance." },
-            { level: "7", title: "Hexblade 3", description: "Pact of the Blade. Gain Misty Step for mobility." },
-            { level: "8", title: "Hexblade 4", description: "Feat: <b>Great Weapon Master (GWM)</b>. Phalar Aluve is versatile and benefits when two-handed." },
-            { level: "9", title: "Hexblade 5", description: "<b>Deepened Pact:</b> Extra Attack. Unlock Level 3 spells like <b>Counterspell</b>." },
-            { level: "10", title: "Ranger 1", description: "<b>Ranger Knight:</b> Heavy Armor Proficiency. <b>Wasteland Wanderer: Fire</b> resistance." },
-            { level: "11", title: "Ranger 2", description: "Fighting Style: Defense (+1 AC). Gain Goodberries for free healing/amulet procs." },
-            { level: "12", title: "Swarmkeeper 3", description: "<b>Gathered Swarm (Moths):</b> Adds psychic damage (doubled by Resonance Stone), blinds, or provides free teleports." }
+            { level: "1-2", title: "Rogue 1-2", description: "Start with Rogue for skill expertise. Cunning Action (Dash/Disengage) provides early mobility." },
+            { level: "3", title: "Swashbuckler 3", description: "<b>Fancy Footwork:</b> Hit an enemy and walk away without opportunity attacks. <b>Rakish Audacity:</b> Sneak attack without advantage." },
+            { level: "4", title: "Swashbuckler 4", description: "<b>Dirty Tricks:</b> Unlock Flick of the Wrist (Disarm) and Sand Toss (Blind). Feat: Ability Improvement (Cha +2)." },
+            { level: "5", title: "Hexblade 1", description: "<b>Bind Hex Weapon:</b> Scale weapon with Charisma. Unlock <b>Shield</b> and <b>Booming Blade</b>." },
+            { level: "6", title: "Hexblade 2", description: "Invocations: Agonizing Blast and Repelling Blast for a reliable ranged backup." },
+            { level: "7", title: "Hexblade 3", description: "Pact of the Blade. Weapon attacks now count as magical. Access to Level 2 spells." },
+            { level: "8", title: "Hexblade 4", description: "Feat: <b>Great Weapon Master</b>. Phalar Aluve (versatile) benefits when used two-handed." },
+            { level: "9", title: "Hexblade 5", description: "<b>Deepened Pact:</b> Extra Attack. Finally making two weapon swings per action." },
+            { level: "10", title: "Ranger 1", description: "<b>Ranger Knight:</b> Gain Heavy Armor proficiency. <b>Wasteland Wanderer: Fire</b> resistance." },
+            { level: "11", title: "Ranger 2", description: "Fighting Style: <b>Defense</b> (+1 AC). Gain Ranger spells like Ensnaring Strike." },
+            { level: "12", title: "Swarmkeeper 3", description: "<b>Gathered Swarm (Moths):</b> Adds psychic damage (doubled by Resonance Stone) or free repositioning." }
         ],
-        equipment: {
-            act1: [
-                { slot: "Weapon", name: "Phalar Aluve", rarity: "rare", location: "Underdark", note: "Finesse/Versatile. Use two-handed with GWM. Shriek/Sing support." },
-                { slot: "Amulet", name: "Broodmother's Revenge", rarity: "uncommon", location: "Druid Grove", note: "+1d6 Poison damage when healed (synergizes with Goodberries)." },
-                { slot: "Hands", name: "Gloves of Dexterity", rarity: "very-rare", location: "Creche Y'llek", note: "Sets Dex to 18 for high AC and Initiative." }
+        dirty_tricks: {
+            god: [
+                { name: "Flick of the Wrist", effect: "Bonus action Disarm. Force enemies to drop weapons for free. Use the 'Bully' playstyle to steal them." },
+                { name: "Moth Swarm", effect: "Gathered Swarm (Psychic). Adds 1d6 psychic damage, doubled by the party's Resonance Stone." }
             ],
-            act2: [
-                { slot: "Ring", name: "Risky Ring", rarity: "rare", location: "Moonrise Towers", note: "Advantage on all attacks to offset GWM penalty." },
-                { slot: "Ring", name: "Ring of Arcane Synergy", rarity: "uncommon", location: "Creche Y'llek", note: "Adds Charisma mod to weapon damage after cantrips." },
-                { slot: "Boots", name: "Boots of Stormy Clamour", rarity: "uncommon", location: "Underdark", note: "Apply Reverberation on CC application." }
-            ],
-            act3: [
-                { slot: "Weapon", name: "Dancing Breeze", rarity: "very-rare", location: "Rivington", note: "Legendary Glaive (Finesse). Massive reach and Whirlwind Attack." },
-                { slot: "Head", name: "Birthright", rarity: "very-rare", location: "Sorcerous Sundries", note: "+2 Charisma (up to 22 with Mirror of Loss)." },
-                { slot: "Armor", name: "Armor of Persistence", rarity: "very-rare", location: "Dammon (Forge)", note: "Permanent Blade Ward and Resistance." },
-                { slot: "Cloak", name: "Cloak of Displacement", rarity: "rare", location: "Danthelon's Dancing Axe", note: "Enemies have disadvantage on attacks against you." },
-                { slot: "Hands", name: "Helldusk Gloves", rarity: "very-rare", location: "House of Hope", note: "+1d6 Fire damage and Bleed." },
-                { slot: "Bow", name: "The Dead Shot", rarity: "very-rare", location: "Fraygo's Flophouse", note: "Lowers crit threshold." }
+            good: [
+                { name: "Sand Toss", effect: "Blind target as a 'dirty trick'. Excellent for granting advantage and forcing misses." },
+                { name: "Swarm Teleport", effect: "Use your swarm to reposition after an attack, even if you didn't hit." }
             ]
         },
-        strategy: "Solo scout with <b>Fancy Footwork</b>. Use <b>Booming Blade</b>, then disarm with <b>Flick of the Wrist</b> (bonus action), pick up their weapon, and dip out safely. In Act 3, use <b>Moth Swarm</b> teleports to reposition. Synergizes with the party <b>Resonance Stone</b> via Psychic moth damage.",
+        equipment: {
+            act1: [
+                { slot: "Weapon", name: "Phalar Aluve", rarity: "rare", location: "Underdark (Sword in Stone)", note: "Main weapon for Acts 1 & 2. Use 'Shriek' to proc psychic damage." },
+                { slot: "Amulet", name: "Broodmother's Revenge", rarity: "uncommon", location: "Kagha (Emerald Grove)", note: "Adds 1d6 Poison damage when healed. Procs via Ranger's Goodberries." },
+                { slot: "Hands", name: "Gloves of Dexterity", rarity: "very-rare", location: "A'jak'nir Jeera (Creche)", note: "Sets Dex to 18. Allows you to dump Dex later for more Charisma." },
+                { slot: "Ring", name: "Caustic Band", rarity: "uncommon", location: "Derryth Bonecloak", note: "+2 Acid damage per hit." },
+                { slot: "Head", name: "Diadem of Arcane Synergy", rarity: "uncommon", location: "Creche Y'llek", note: "Adds Charisma mod to weapon damage." }
+            ],
+            act2: [
+                { slot: "Ring", name: "Risky Ring", rarity: "rare", location: "Araj Oblodra (Moonrise)", note: "Advantage on all attacks to offset GWM penalty. Mandatory." },
+                { slot: "Ring", name: "Ring of Arcane Synergy", rarity: "uncommon", location: "Creche (Gish Far'uun)", note: "Alternative synergy source for Charisma damage." },
+                { slot: "Boots", name: "Boots of Stormy Clamour", rarity: "uncommon", location: "Omeluum (Underdark)", note: "Apply Reverberation when inflicting conditions (like Blind/Disarm)." },
+                { slot: "Cloak", name: "Cloak of Protection", rarity: "uncommon", location: "Quartermaster Talli", note: "+1 AC and Saving Throws." }
+            ],
+            act3: [
+                { slot: "Weapon", name: "Dancing Breeze", rarity: "very-rare", location: "Exxvikyap (Rivington General)", note: "Finesse Glaive. Massive reach and Whirlwind Attack. Benefits from GWM." },
+                { slot: "Head", name: "Birthright", rarity: "very-rare", location: "Ramazith's Tower", note: "+2 Charisma (up to 22). Caps your damage scaling." },
+                { slot: "Armor", name: "Armor of Persistence", rarity: "very-rare", location: "Dammon (Lower City)", note: "Permanent Blade Ward and Resistance. God-tier sustain." },
+                { slot: "Cloak", name: "Cloak of Displacement", rarity: "rare", location: "Entharl Danthelon", note: "Disadvantage on attacks against you while at full health." },
+                { slot: "Bow", name: "The Dead Shot", rarity: "very-rare", location: "Fraygo's Flophouse", note: "Lowers critical hit threshold and improves accuracy." }
+            ]
+        },
+        strategy: "The Hexwing Phantom is a master of the 'Bully' playstyle. Use <b>Fancy Footwork</b> to hit an enemy with <b>Booming Blade</b>, then use your bonus action for <b>Flick of the Wrist</b> to disarm them. Pick up their weapon for free and walk away—they take damage if they follow. In Act 3, your <b>Moth Swarm</b> (Gathered Swarm) deals Psychic damage, which is doubled by the party's <b>Resonance Stone</b>, turning you into a melee nuke.",
         takeaways: [
-            "Truly Single Ability Dependent (SAD) on Charisma after Level 5.",
-            "Can disarm enemies using a bonus action with higher success than Command.",
-            "Exceptional mobility: Reach weapon + Fancy Footwork + Moth Teleports."
+            "Completely SAD on Charisma after Level 5 (Hexblade).",
+            "Disarm enemies as a bonus action without using spell slots.",
+            "Psychic damage from Moths + Resonance Stone is the build's 'secret weapon'."
         ]
     },
     {
