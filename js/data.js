@@ -68,7 +68,7 @@ const builds = {
         title: "The Bow Progression",
         items: [
           { slot: "Early Game", item: "Joltshooter", rarity: "rare", image: "https://bg3.wiki/w/images/d/d9/The_Joltshooter_Icon.png", location: "Waukeen's Rest reward", wiki: "https://bg3.wiki/wiki/The_Joltshooter", note: "Builds Lightning Charges for damage/accuracy." },
-          { slot: "Mid Game", item: "Bow of the Banshee", rarity: "rare", image: "https://bg3.wiki/w/images/5/5e/Bow_of_the_Banshee_Icon.png", location: "Sold by Corsair Greymon", wiki: "https://bg3.wiki/wiki/Bow_of_the_Banshee", note: "Frightens groups via Piercing Arrow synergy." },
+          { slot: "Mid Game", item: "Bow of the Banshee", rarity: "rare", image: "https://bg3.wiki/w/images/d/dd/Shortbow_PlusOne_Icon.png", location: "Sold by Corsair Greymon", wiki: "https://bg3.wiki/wiki/Bow_of_the_Banshee", note: "Frightens groups via Piercing Arrow synergy." },
           { slot: "End Game", item: "Gontr Mael", rarity: "legendary", image: "https://bg3.wiki/w/images/d/de/Gontr_Mael_Icon.png", location: "Steel Watcher Titan", wiki: "https://bg3.wiki/wiki/Gontr_Mael", note: "Legendary +3 bow, grants Celestial Haste." }
         ]
       },
@@ -76,9 +76,9 @@ const builds = {
         title: "Supporting Gear",
         items: [
           { slot: "Head", item: "Mask of Soul Perception", rarity: "very-rare", image: "https://bg3.wiki/w/images/e/e1/Mask_of_Soul_Perception_Icon.png", location: "Devil's Fee, Act 3", wiki: "https://bg3.wiki/wiki/Mask_of_Soul_Perception", note: "+2 to attack rolls and initiative." },
-          { slot: "Gloves", item: "Legacy of the Masters", rarity: "very-rare", image: "https://bg3.wiki/w/images/2/2a/Legacy_of_the_Masters_Icon.png", location: "Dammon, Forge of the Nine", wiki: "https://bg3.wiki/wiki/Legacy_of_the_Masters", note: "+2 to attack and damage rolls." },
+          { slot: "Gloves", item: "Legacy of the Masters", rarity: "very-rare", image: "https://bg3.wiki/w/images/b/b0/Gloves_Metal_C_Faded.png", location: "Dammon, Forge of the Nine", wiki: "https://bg3.wiki/wiki/Legacy_of_the_Masters", note: "+2 to attack and damage rolls." },
           { slot: "Armor", item: "Helldusk Armour", rarity: "legendary", image: "https://bg3.wiki/w/images/c/cb/Helldusk_Armour_Icon.png", location: "House of Hope", wiki: "https://bg3.wiki/wiki/Helldusk_Armour", note: "Superior protection for your archer." },
-          { slot: "Ring", item: "Ring of Mental Inhibition", rarity: "uncommon", image: "https://bg3.wiki/w/images/9/90/Ring_of_Mental_Inhibition_Icon.png", location: "Ruined Battlefield, Act 2", wiki: "https://bg3.wiki/wiki/Ring_of_Mental_Inhibition", note: "Enemies fail saves more often after being hit (Psychic synergy)." },
+          { slot: "Ring", item: "Ring of Mental Inhibition", rarity: "uncommon", image: "https://bg3.wiki/w/images/e/e1/Ring_B_1_Faded.png", location: "Ruined Battlefield, Act 2", wiki: "https://bg3.wiki/wiki/Ring_of_Mental_Inhibition", note: "Enemies fail saves more often after being hit (Psychic synergy)." },
           { slot: "Melee", item: "Knife of the Undermountain King", rarity: "very-rare", image: "https://bg3.wiki/w/images/9/9b/Knife_of_the_Undermountain_King_Icon.png", location: "A'jak'nir Jeera, Creche", wiki: "https://bg3.wiki/wiki/Knife_of_the_Undermountain_King", note: "Stat stick for crits and rerolling 1s/2s." }
         ]
       }
@@ -169,18 +169,18 @@ const builds = {
       {
         title: "Act 1–2: The Versatile Duelist",
         items: [
-          { slot: "Weapon", item: "Phalar Aluve", rarity: "rare", image: "https://bg3.wiki/w/images/6/67/Phalar_Aluve_Icon.png", location: "Underdark stone", wiki: "https://bg3.wiki/wiki/Phalar_Aluve", note: "Finesse versatile weapon — two-hand it for GWM damage while using Charisma." },
-          { slot: "Armlet", item: "Broodmother's Revenge", rarity: "uncommon", image: "https://bg3.wiki/w/images/2/23/Broodmother's_Revenge_Icon.png", location: "Kagha", wiki: "https://bg3.wiki/wiki/Broodmother%27s_Revenge", note: "Adds poison to weapon after eating a Goodberry." },
+          { slot: "Weapon", item: "Phalar Aluve", rarity: "rare", image: "https://bg3.wiki/w/images/8/89/Longsword_+1_Icon.png", location: "Underdark stone", wiki: "https://bg3.wiki/wiki/Phalar_Aluve", note: "Finesse versatile weapon — two-hand it for GWM damage while using Charisma." },
+          { slot: "Armlet", item: "Broodmother's Revenge", rarity: "uncommon", image: "https://bg3.wiki/w/images/4/48/Amulet_Necklace_F_Bronze_A_1_Faded.png", location: "Kagha", wiki: "https://bg3.wiki/wiki/Broodmother%27s_Revenge", note: "Adds poison to weapon after eating a Goodberry." },
           { slot: "Ring", item: "Strange Conduit Ring", rarity: "uncommon", image: "https://bg3.wiki/w/images/e/e4/Strange_Conduit_Ring_Icon.png", location: "Inquisitor chamber", wiki: "https://bg3.wiki/wiki/Strange_Conduit_Ring", note: "Extra psychic damage while concentrating (Hex/Elemental Weapon)." }
         ]
       },
       {
         title: "Act 3: Final Form",
         items: [
-          { slot: "Weapon", item: "The Dancing Breeze", rarity: "very-rare", image: "https://bg3.wiki/w/images/a/ab/The_Dancing_Breeze_Icon.png", location: "Exxvikyap, Rivington", wiki: "https://bg3.wiki/wiki/The_Dancing_Breeze", note: "Finesse Glaive — massive reach + GWM + Whirlwind AoE." },
+          { slot: "Weapon", item: "The Dancing Breeze", rarity: "very-rare", image: "https://bg3.wiki/w/images/1/15/Glaive_PlusTwo_Icon.png", location: "Exxvikyap, Rivington", wiki: "https://bg3.wiki/wiki/The_Dancing_Breeze", note: "Finesse Glaive — massive reach + GWM + Whirlwind AoE." },
           { slot: "Helm", item: "Birthright", rarity: "very-rare", image: "https://bg3.wiki/w/images/1/1b/Birthright_Icon.png", location: "Sorcerous Sundries", wiki: "https://bg3.wiki/wiki/Birthright", note: "+2 Charisma (pushes to 22 with Mirror)." },
           { slot: "Armor", item: "Armour of Persistence", rarity: "very-rare", image: "https://bg3.wiki/w/images/8/8b/Armour_of_Persistence_Icon.png", location: "Dammon, Forge of the Nine", wiki: "https://bg3.wiki/wiki/Armour_of_Persistence", note: "Permanent Resistance and Warding Bond for ultimate tanking." },
-          { slot: "Ring", item: "Risky Ring", rarity: "rare", image: "https://bg3.wiki/w/images/d/d4/Risky_Ring_Icon.png", location: "Araj Oblodra, Moonrise", wiki: "https://bg3.wiki/wiki/Risky_Ring", note: "Guarantees crits/sneak attacks and offsets GWM penalty." }
+          { slot: "Ring", item: "Risky Ring", rarity: "rare", image: "https://bg3.wiki/w/images/2/22/Ring_E_Gold_A_1_Faded.png", location: "Araj Oblodra, Moonrise", wiki: "https://bg3.wiki/wiki/Risky_Ring", note: "Guarantees crits/sneak attacks and offsets GWM penalty." }
         ]
       }
     ],
@@ -214,7 +214,7 @@ const builds = {
     accent: "#d9b23c",
     accentSoft: "rgba(217,178,60,0.14)",
     accentLine: "rgba(217,178,60,0.4)",
-    portrait: "https://bg3.wiki/w/images/9/9f/Portrait_Wood_Elf_Male.png",
+    portrait: "https://bg3.wiki/w/images/6/62/Wood_Elf_Default_Portrait.png",
     overview: {
       theme: "The 'chosen one' of the party. Fuses the destructive magic of a Wizard with the divine smites of a Paladin.",
       playstyle: "A tanky frontline wizard who uses magic to achieve 35+ AC. Delivers absolute nuclear damage via Shadow Blade and Divine Smites.",
@@ -268,7 +268,7 @@ const builds = {
         items: [
           { slot: "Weapon", item: "Shadow Blade", rarity: "rare", image: "https://bg3.wiki/w/images/4/47/Shadow_Blade_Icon.png", location: "Cast via Level 2 spell", wiki: "https://bg3.wiki/wiki/Shadow_Blade_(Spell)", note: "Scales with Dex, deals psychic damage. Doubled by Resonance Stone." },
           { slot: "Off Hand", item: "Rhapsody", rarity: "very-rare", image: "https://bg3.wiki/w/images/7/70/Rhapsody_Icon.png", location: "Cazador's Palace", wiki: "https://bg3.wiki/wiki/Rhapsody", note: "Stat stick for +3 to hit/damage/DC." },
-          { slot: "Inventory", item: "Resonance Stone", rarity: "rare", image: "https://bg3.wiki/w/images/6/6b/Resonance_Stone_Icon.png", location: "Mind Flayer Colony, Act 2", wiki: "https://bg3.wiki/wiki/Resonance_Stone", note: "MANDATORY. Doubles psychic damage for the whole party." }
+          { slot: "Inventory", item: "Resonance Stone", rarity: "rare", image: "https://bg3.wiki/w/images/b/b8/Resonance_Stone.png", location: "Mind Flayer Colony, Act 2", wiki: "https://bg3.wiki/wiki/Resonance_Stone", note: "MANDATORY. Doubles psychic damage for the whole party." }
         ]
       },
       {
@@ -277,7 +277,7 @@ const builds = {
           { slot: "Head", item: "Diadem of Arcane Synergy", rarity: "uncommon", image: "https://bg3.wiki/w/images/9/92/Diadem_of_Arcane_Synergy_Icon.png", location: "Crèche Inquisitor", wiki: "https://bg3.wiki/wiki/Diadem_of_Arcane_Synergy", note: "Adds Int mod to weapon damage." },
           { slot: "Chest", item: "Robe of the Weave", rarity: "very-rare", image: "https://bg3.wiki/w/images/0/0c/Robe_of_the_Weave_Icon.png", location: "Ramazith's Tower", wiki: "https://bg3.wiki/wiki/Robe_of_the_Weave", note: "+2 AC and spell accuracy." },
           { slot: "Amulet", item: "Amulet of Greater Health", rarity: "very-rare", image: "https://bg3.wiki/w/images/2/27/Amulet_of_Greater_Health_Icon.png", location: "House of Hope", wiki: "https://bg3.wiki/wiki/Amulet_of_Greater_Health", note: "Sets Con to 23 for god-tier HP and concentration." },
-          { slot: "Ring", item: "Band of the Mystic Scoundrel", rarity: "very-rare", image: "https://bg3.wiki/w/images/1/13/Band_of_the_Mystic_Scoundrel_Icon.png", location: "Akabi, Jungle of Chult", wiki: "https://bg3.wiki/wiki/Band_of_the_Mystic_Scoundrel", note: "Cast Hold Person/Monster as a bonus action after attacking." }
+          { slot: "Ring", item: "Band of the Mystic Scoundrel", rarity: "very-rare", image: "https://bg3.wiki/w/images/2/22/Ring_E_Gold_A_1_Faded.png", location: "Akabi, Jungle of Chult", wiki: "https://bg3.wiki/wiki/Band_of_the_Mystic_Scoundrel", note: "Cast Hold Person/Monster as a bonus action after attacking." }
         ]
       }
     ],
@@ -380,10 +380,10 @@ const builds = {
       {
         title: "Act 1: Early Essentials",
         items: [
-          { slot: "Weapon", item: "Melf's First Staff", rarity: "uncommon", image: "https://bg3.wiki/w/images/b/b7/Melf's_First_Staff_Icon.png", location: "Sold by Blurg, Underdark", wiki: "https://bg3.wiki/wiki/Melf%27s_First_Staff", note: "Boosts Spell DC and Attack Rolls." },
-          { slot: "Weapon (Alt)", item: "Sorrow", rarity: "rare", image: "https://bg3.wiki/w/images/d/d5/Sorrow_Icon.png", location: "Hidden Vault, Druid Grove", wiki: "https://bg3.wiki/wiki/Sorrow", note: "Grants Sorrowful Lash (bonus action pull) which can proc Touch of Death." },
-          { slot: "Gloves", item: "Hellrider's Pride", rarity: "uncommon", image: "https://bg3.wiki/w/images/b/bb/Hellrider's_Pride_Icon.png", location: "Zevlor reward", wiki: "https://bg3.wiki/wiki/Hellrider%27s_Pride", note: "Adds Blade Ward to your heals." },
-          { slot: "Ring", item: "The Whispering Promise", rarity: "uncommon", image: "https://bg3.wiki/w/images/8/84/The_Whispering_Promise_Icon.png", location: "Volo / various traders", wiki: "https://bg3.wiki/wiki/The_Whispering_Promise", note: "Adds Bless to your heals." },
+          { slot: "Weapon", item: "Melf's First Staff", rarity: "uncommon", image: "https://bg3.wiki/w/images/0/08/Magic_Staff_B_Icon.png", location: "Sold by Blurg, Underdark", wiki: "https://bg3.wiki/wiki/Melf%27s_First_Staff", note: "Boosts Spell DC and Attack Rolls." },
+          { slot: "Weapon (Alt)", item: "Sorrow", rarity: "rare", image: "https://bg3.wiki/w/images/e/ef/Glaive_PlusOne_Icon.png", location: "Hidden Vault, Druid Grove", wiki: "https://bg3.wiki/wiki/Sorrow", note: "Grants Sorrowful Lash (bonus action pull) which can proc Touch of Death." },
+          { slot: "Gloves", item: "Hellrider's Pride", rarity: "uncommon", image: "https://bg3.wiki/w/images/4/47/Gloves_Metal_1_Faded.png", location: "Zevlor reward", wiki: "https://bg3.wiki/wiki/Hellrider%27s_Pride", note: "Adds Blade Ward to your heals." },
+          { slot: "Ring", item: "The Whispering Promise", rarity: "uncommon", image: "https://bg3.wiki/w/images/a/aa/Ring_F_1_Faded.png", location: "Volo / various traders", wiki: "https://bg3.wiki/wiki/The_Whispering_Promise", note: "Adds Bless to your heals." },
           { slot: "Amulet", item: "Amulet of Misty Step", rarity: "uncommon", image: "https://bg3.wiki/w/images/9/99/Amulet_of_Misty_Step_Icon.png", location: "Selunite Outpost, Underdark", wiki: "https://bg3.wiki/wiki/Amulet_of_Misty_Step", note: "Enables Spirit Guardians + Misty Step repositioning." },
           { slot: "Helm", item: "Holy Lance Helm", rarity: "rare", image: "https://bg3.wiki/w/images/c/c5/Holy_Lance_Helm_Icon.png", location: "Rosymorn Monastery", wiki: "https://bg3.wiki/wiki/Holy_Lance_Helm", note: "Deals radiant damage when enemies miss." }
         ]
@@ -394,9 +394,9 @@ const builds = {
         items: [
           { slot: "Weapon", item: "The Blood of Lathander", rarity: "legendary", image: "https://bg3.wiki/w/images/f/f5/The_Blood_of_Lathander_Icon.png", location: "Rosymorn Monastery", wiki: "https://bg3.wiki/wiki/The_Blood_of_Lathander", note: "Blinds undead/fiends and grants Sunbeam." },
           { slot: "Armor", item: "Luminous Armour", rarity: "rare", image: "https://bg3.wiki/w/images/8/83/Luminous_Armour_Icon.png", location: "Selunite Outpost chest", wiki: "https://bg3.wiki/wiki/Luminous_Armour", note: "Applies Radiating Orbs in an AoE when dealing radiant damage." },
-          { slot: "Gloves", item: "Luminous Gloves", rarity: "uncommon", image: "https://bg3.wiki/w/images/2/21/Luminous_Gloves_Icon.png", location: "Potter's Chest, Ruined Battlefield", wiki: "https://bg3.wiki/wiki/Luminous_Gloves", note: "Further stacks Radiating Orbs." },
-          { slot: "Ring", item: "Callous Glow Ring", rarity: "uncommon", image: "https://bg3.wiki/w/images/c/c1/Callous_Glow_Ring_Icon.png", location: "Gauntlet of Shar", wiki: "https://bg3.wiki/wiki/Callous_Glow_Ring", note: "Adds +2 radiant damage vs illuminated targets." },
-          { slot: "Ring", item: "Coruscation Ring", rarity: "uncommon", image: "https://bg3.wiki/w/images/1/19/Coruscation_Ring_Icon.png", location: "Last Light Inn cellar", wiki: "https://bg3.wiki/wiki/Coruscation_Ring", note: "Stacks orbs while you are illuminated (synergy with Lathander)." }
+          { slot: "Gloves", item: "Luminous Gloves", rarity: "uncommon", image: "https://bg3.wiki/w/images/0/0c/Gloves_Metal_D_Faded.png", location: "Potter's Chest, Ruined Battlefield", wiki: "https://bg3.wiki/wiki/Luminous_Gloves", note: "Further stacks Radiating Orbs." },
+          { slot: "Ring", item: "Callous Glow Ring", rarity: "uncommon", image: "https://bg3.wiki/w/images/2/22/Ring_E_Gold_A_1_Faded.png", location: "Gauntlet of Shar", wiki: "https://bg3.wiki/wiki/Callous_Glow_Ring", note: "Adds +2 radiant damage vs illuminated targets." },
+          { slot: "Ring", item: "Coruscation Ring", rarity: "uncommon", image: "https://bg3.wiki/w/images/3/3d/Ring_A_Simple_Gold_1_Faded.png", location: "Last Light Inn cellar", wiki: "https://bg3.wiki/wiki/Coruscation_Ring", note: "Stacks orbs while you are illuminated (synergy with Lathander)." }
         ]
       },
       {
@@ -404,7 +404,7 @@ const builds = {
         items: [
           { slot: "Main Hand", item: "Staff of Cherished Necromancy", rarity: "very-rare", image: "https://bg3.wiki/w/images/5/5a/Staff_of_Cherished_Necromancy_Icon.png", location: "Looted from Mystic Carrion", wiki: "https://bg3.wiki/wiki/Staff_of_Cherished_Necromancy", note: "BEST IN SLOT. Gives disadvantage on necro saves and free spells on kill." },
           { slot: "Off Hand", item: "Markoheshkir", rarity: "legendary", image: "https://bg3.wiki/w/images/8/87/Markoheshkir_Icon.png", location: "Ramazith's Tower", wiki: "https://bg3.wiki/wiki/Markoheshkir", note: "Kereska's Favour (Necrotic) chains free spells with the primary staff." },
-          { slot: "Amulet", item: "Amulet of the Devout", rarity: "very-rare", image: "https://bg3.wiki/w/images/2/25/Amulet_of_the_Devout_Icon.png", location: "Stormshore Tabernacle basement", wiki: "https://bg3.wiki/wiki/Amulet_of_the_Devout", note: "+1 Channel Divinity and +2 Spell DC." },
+          { slot: "Amulet", item: "Amulet of the Devout", rarity: "very-rare", image: "https://bg3.wiki/w/images/c/c2/Amulet_of_the_devout.png", location: "Stormshore Tabernacle basement", wiki: "https://bg3.wiki/wiki/Amulet_of_the_devout", note: "+1 Channel Divinity and +2 Spell DC." },
           { slot: "Helm", item: "Hood of the Weave", rarity: "very-rare", image: "https://bg3.wiki/w/images/5/57/Hood_of_the_Weave_Icon.png", location: "Mystic Carrion", wiki: "https://bg3.wiki/wiki/Hood_of_the_Weave", note: "Major boost to spell accuracy." },
           { slot: "Armor", item: "Armour of Agility", rarity: "very-rare", image: "https://bg3.wiki/w/images/9/96/Armour_of_Agility_Icon.png", location: "Stormshore Armoury", wiki: "https://bg3.wiki/wiki/Armour_of_Agility", note: "High AC + full Dex bonus + saving throw bonus." },
           { slot: "Gloves", item: "Gemini Gloves", rarity: "very-rare", image: "https://bg3.wiki/w/images/4/4e/Gemini_Gloves_Icon.png", location: "Helsik, Devil's Fee", wiki: "https://bg3.wiki/wiki/Gemini_Gloves", note: "Allows necrotic cantrips to hit even MORE targets." }
