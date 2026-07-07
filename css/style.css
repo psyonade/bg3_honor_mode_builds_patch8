@@ -16,8 +16,8 @@
     --accent-line: rgba(157, 127, 209, 0.3);
 
     /* Rarity Colors - Custom as per user request */
-    --rarity-common: #44bb44; /* Green */
-    --rarity-uncommon: var(--border-soft); /* Neutral */
+    --rarity-common: var(--border-soft); /* Neutral */
+    --rarity-uncommon: #44bb44; /* Green */
     --rarity-rare: #3b82f6; /* Blue */
     --rarity-very-rare: #ef4444; /* Red */
     --rarity-legendary: #d4af37; /* Gold */
