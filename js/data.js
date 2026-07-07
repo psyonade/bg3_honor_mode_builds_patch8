@@ -12,15 +12,15 @@ const builds = [
             { name: "Wood Half-Elf", utility: "Extra movement speed and Fey Ancestry (CC resistance)." }
         ],
         abilities: [
-            { score: "Dexterity", value: "17 (+1)", reason: "Your primary stat for attack rolls, damage, Initiative, and Armor Class. Should be capped at 20 ASAP." },
-            { score: "Intelligence", value: "16", reason: "Determines the Spell DC for your Arcane Shots. Essential for ensuring your CC (like Banish) lands." },
-            { score: "Constitution", value: "14", reason: "Provides a healthy HP pool and helps with Concentration checks if you use spells like Divine Favor." },
-            { score: "Str/Wis/Cha", value: "10", reason: "Dump stats. Wisdom at 10 helps slightly with common saving throws." }
+            { score: "Dexterity", value: "16", reason: "Your primary stat for attack rolls, damage, Initiative, and Armor Class. The video recommends a balanced 16/16 split with Intelligence." },
+            { score: "Intelligence", value: "16", reason: "Determines the Spell DC for your Arcane Shots. Critical for ensuring your God-Tier CC (like Banish) lands reliably." },
+            { score: "Constitution", value: "14", reason: "Provides a healthy HP pool and helps with Concentration checks if you use spells like Shield of Faith." },
+            { score: "Wis/Cha/Str", value: "10/8/8", reason: "Dump stats. Higher Wisdom (10) helps with common saving throws against being CC'd yourself." }
         ],
         leveling: [
-            { level: "1", title: "Fighter 1", description: "Archery Fighting Style (+2 Attack Rolls). Initial proficiency in Heavy Armor and all weapons. 16 Dex / 16 Int." },
-            { level: "2", title: "Fighter 2", description: "Action Surge. The core of your burst potential. Use once per short rest for a double action." },
-            { level: "3", title: "Arcane Archer 3", description: "<b>Arcane Shots:</b> Pick Banishing Arrow, Shadow Arrow, and Bursting Arrow. Gain Guidance cantrip (S-tier utility)." },
+            { level: "1", title: "Fighter 1", description: "Archery Fighting Style (+2 Attack Rolls). Initial proficiency in Heavy Armor and all weapons. Starting stats: 16 Dex / 16 Int / 14 Con." },
+            { level: "2", title: "Fighter 2", description: "Action Surge. The core of your burst potential. Use once per short rest for a double action. At level 11, this means 6 attacks in one turn." },
+            { level: "3", title: "Arcane Archer 3", description: "<b>Arcane Shots:</b> Pick Banishing Arrow, Shadow Arrow, and Bursting Arrow. The video highlights that you can choose 3 at this stage." },
             { level: "4", title: "Fighter 4", description: "Feat: Ability Improvement (Dex +2). Get to 18 (or 20 if using Hag's Hair)." },
             { level: "5", title: "Fighter 5", description: "Extra Attack. Your first major power spike. Now making two shots per action." },
             { level: "6", title: "Fighter 6", description: "Feat: Sharpshooter. Mandatory for +10 flat damage per shot. The accuracy penalty is offset by Archery style and gear." },
@@ -29,7 +29,7 @@ const builds = [
             { level: "9", title: "Fighter 9", description: "Indomitable. Reroll a failed saving throw once per long rest." },
             { level: "10", title: "Arcane Archer 10", description: "<b>More Arcane Shots:</b> Piercing Arrow and Grasping Arrow. Finalize your CC utility roster." },
             { level: "11", title: "Fighter 11", description: "Improved Extra Attack (3 attacks per action). At this level, Action Surge grants 6 attacks." },
-            { level: "12", title: "War Cleric 1 (Dip)", description: "<b>War Priest:</b> Use bonus action for extra attacks (War Priest charges). <b>Spells:</b> Sanctuary, Shield of Faith, Divine Favor, Bless." }
+            { level: "12", title: "War Cleric 1 (Dip)", description: "<b>War Priest:</b> Use bonus action for extra attacks (War Priest charges). <b>Spells:</b> Sanctuary, Shield of Faith, Divine Favor, Bless. Finalizes the build as an 'Ultra Carry'." }
         ],
         arcane_shots: {
             god: [
@@ -49,29 +49,29 @@ const builds = [
         },
         equipment: {
             act1: [
-                { slot: "Weapon", name: "Jolt Shooter", rarity: "rare", location: "Waukeen's Rest", note: "Lightning charges for accuracy and damage." },
-                { slot: "Weapon (Alt)", name: "Bow of the Banshee", rarity: "rare", location: "Act 1 Merchant", note: "Apply Frightened to entire groups via Piercing Arrow." },
-                { slot: "Armor", name: "Adamantine Splint Armour", rarity: "very-rare", location: "Grymforge", note: "Best-in-slot sustain for early game." },
+                { slot: "Weapon", name: "Jolt Shooter", rarity: "rare", location: "Waukeen's Rest", note: "Lightning charges for accuracy and damage. Pick as quest reward." },
+                { slot: "Weapon (Alt)", name: "Bow of the Banshee", rarity: "rare", location: "Corsair Greymon (Grymforge)", note: "Apply Frightened to entire groups via Piercing Arrow. S-Tier in Act 1." },
+                { slot: "Armor", name: "Adamantine Splint Armour", rarity: "very-rare", location: "Grymforge (Forge)", note: "Best-in-slot sustain for early game. Reduces incoming damage." },
                 { slot: "Hands", name: "Gloves of Archery", rarity: "uncommon", location: "Goblin Camp", note: "+2 Damage with bows." },
                 { slot: "Boots", name: "Boots of Genial Striding", rarity: "uncommon", location: "Blighted Village", note: "Ignore difficult terrain." }
             ],
             act2: [
-                { slot: "Head", name: "Helm of Arcane Acuity", rarity: "uncommon", location: "Mason's Guild", note: "Stacks spell DC with every shot. Makes CC landing 100%." },
-                { slot: "Cloak", name: "Cloak of Elemental Absorption", rarity: "uncommon", location: "Last Light Inn", note: "Defensive sustain and bonus elemental damage." },
-                { slot: "Amulet", name: "Amulet of the Harpers", rarity: "rare", location: "Last Light Inn", note: "Shield spell for defense and Wisdom save advantage." },
+                { slot: "Head", name: "Helm of Arcane Acuity", rarity: "uncommon", location: "Mason's Guild (Act 2)", note: "Stacks spell DC with every shot. The core of your CC dominance." },
+                { slot: "Cloak", name: "Cloak of Elemental Absorption", rarity: "uncommon", location: "Last Light Inn (Talli)", note: "Defensive sustain and bonus elemental damage." },
+                { slot: "Amulet", name: "Amulet of the Harpers", rarity: "rare", location: "Quartermaster Talli", note: "Shield spell for defense and Wisdom save advantage." },
                 { slot: "Ring", name: "Killer's Sweetheart", rarity: "rare", location: "Gauntlet of Shar", note: "Guaranteed critical hit once per rest." },
                 { slot: "Ring", name: "Ring of Mental Inhibition", rarity: "uncommon", location: "Ruined Battlefield", note: "Applies Mental Fatigue to enemies who fail saves." }
             ],
             act3: [
                 { slot: "Weapon", name: "Gontr Mael", rarity: "legendary", location: "Steel Watch Foundry", note: "Legendary Bow. Provides Haste and Celestial Light." },
-                { slot: "Armor", name: "Helldusk Armour", rarity: "legendary", location: "House of Hope", note: "Ultimate sustain and damage resistance." },
-                { slot: "Hands", name: "Legacy of the Masters", rarity: "very-rare", location: "Dammon (Forge)", note: "+2 to Attack and Damage rolls." },
-                { slot: "Head", name: "Mask of Soul Perception", rarity: "very-rare", location: "Devil's Fee", note: "+2 to Attack, Initiative, and Perception." },
-                { slot: "Melee", name: "Ambusher", rarity: "rare", location: "Rivington", note: "+1d6 damage vs targets that haven't acted yet." },
+                { slot: "Armor", name: "Helldusk Armour", rarity: "legendary", location: "House of Hope (Raphael)", note: "Ultimate sustain and damage resistance. Wear regardless of proficiency." },
+                { slot: "Hands", name: "Legacy of the Masters", rarity: "very-rare", location: "Dammon (Lower City)", note: "+2 to Attack and Damage rolls." },
+                { slot: "Head", name: "Mask of Soul Perception", rarity: "very-rare", location: "Devil's Fee (Helsik)", note: "+2 to Attack, Initiative, and Perception. Alternative to Acuity helm." },
+                { slot: "Melee", name: "Ambusher", rarity: "rare", location: "Rivington General", note: "+1d6 damage vs targets that haven't acted yet. Amazing stat stick." },
                 { slot: "Melee", name: "Knife of the Undermountain King", rarity: "very-rare", location: "Creche Y'llek", note: "Stat stick for easier crits and damage rerolls." }
             ]
         },
-        strategy: "Use <b>Banishing Arrow</b> to remove the biggest threat from the board for 2 turns. Combo <b>Shadow Arrow</b> with the party's <b>Resonance Stone</b> to double its psychic damage. Use <b>Piercing Arrow</b> with <b>Bow of the Banshee</b> to mass-frighten enemies in a line. With Action Surge and War Priest charges, you can reach 7-8 attacks in one turn.",
+        strategy: "The Arcane Deadeye is a master of CC and burst. Use <b>Banishing Arrow</b> to remove the biggest threat from the board for 2 turns (no save in some patches, or high DC here). Combo <b>Shadow Arrow</b> with the party's <b>Resonance Stone</b> to double its psychic damage. Use <b>Piercing Arrow</b> with <b>Bow of the Banshee</b> to mass-frighten enemies in a line. With Action Surge and War Priest charges, you can reach 6-7 attacks in one turn (8 with Haste).",
         takeaways: [
             "Arcane Shots use Intelligence for DC, but Dexterity for damage.",
             "Can reach 7-8 attacks in a single turn with Action Surge and Haste.",
