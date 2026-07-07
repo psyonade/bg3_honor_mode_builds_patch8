@@ -16,14 +16,64 @@
             <p>Master the most powerful party compositions in Baldur's Gate 3. Explore four specialized builds designed for zero gear overlap and maximum tactical synergy.</p>
         </header>
 
-        <nav class="build-select" id="buildSelect"></nav>
+        <!-- Navigation Grid -->
+        <div class="nav-grid">
+            <div class="nav-card" data-build="arcane-deadeye">
+                <img src="assets/portraits/deadeye.webp" alt="Arcane Deadeye" onerror="this.src='assets/portraits/placeholder.webp'">
+                <div class="nav-label">Arcane Deadeye</div>
+            </div>
+            <div class="nav-card" data-build="hexwing-phantom">
+                <img src="assets/portraits/phantom.webp" alt="Hexwing Phantom" onerror="this.src='assets/portraits/placeholder.webp'">
+                <div class="nav-label">Hexwing Phantom</div>
+            </div>
+            <div class="nav-card active" data-build="godblade">
+                <img src="assets/portraits/godblade.webp" alt="Godblade" onerror="this.src='assets/portraits/placeholder.webp'">
+                <div class="nav-label">Godblade</div>
+            </div>
+            <div class="nav-card" data-build="death-reaper">
+                <img src="assets/portraits/reaper.webp" alt="Death Reaper" onerror="this.src='assets/portraits/placeholder.webp'">
+                <div class="nav-label">Death Reaper</div>
+            </div>
+        </div>
 
-        <section class="banner" id="banner"></section>
-        <nav class="tabs" id="tabs"></nav>
-        <main id="content"></main>
+        <!-- Build Detail Section -->
+        <section class="build-detail">
+            <div class="build-header">
+                <div class="title-role">
+                    <h2 id="build-name">Godblade</h2>
+                    <span class="role-badge" id="build-role-text">Magic Tank / Melee Burst / Utility</span>
+                </div>
+                <div class="build-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Class Split</span>
+                        <span class="meta-value" id="build-multiclass">10 Bladesinger Wizard / 2 Oath of the Crown Paladin</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Race</span>
+                        <span class="meta-value" id="build-race">Recommended: Wood Half-Elf, Half-Orc, or Githyanki</span>
+                    </div>
+                </div>
+                <p class="build-summary" id="build-desc">
+                    The evolution of the Bladesinger. A divine warrior combining high-level wizardry with Paladin smites. Boasting over 40 AC and capable of 500+ damage in a turn, the Godblade is the ultimate Honor Mode insurance.
+                </p>
+            </div>
+
+            <nav class="tab-nav">
+                <button class="tab-btn active" data-tab="overview">Overview</button>
+                <button class="tab-btn" data-tab="abilities">Abilities</button>
+                <button class="tab-btn" data-tab="leveling">Progression</button>
+                <button class="tab-btn" data-tab="gear">Equipment</button>
+                <button class="tab-btn" data-tab="strategy">Combat</button>
+                <button class="tab-btn" data-tab="takeaways">Takeaways</button>
+            </nav>
+
+            <div id="tab-content" class="tab-pane active">
+                <!-- Content injected via script.js -->
+            </div>
+        </section>
 
         <footer>
-            Built for Honor Mode · All gear data via bg3.wiki · Click item names to view full stats
+            Built for Honor Mode · All gear data via bg3.wiki · All builds verified for zero gear overlap.
         </footer>
     </div>
 
