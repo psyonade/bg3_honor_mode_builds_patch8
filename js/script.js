@@ -8,23 +8,34 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Initialize UI
+    renderNav();
     renderBuild(currentBuild);
 
-    // Event Delegation for Navigation
-    document.querySelector('.nav-grid').addEventListener('click', (e) => {
-        const card = e.target.closest('.nav-card');
-        if (!card) return;
+    function renderNav() {
+        const navGrid = document.querySelector('.nav-grid');
+        navGrid.innerHTML = builds.map(build => `
+            <div class="nav-card ${currentBuild.id === build.id ? 'active' : ''}" data-build="${build.id}">
+                <img src="${build.portrait}" alt="${build.name}" onerror="this.src='assets/portraits/placeholder.svg'">
+                <div class="nav-label">${build.name}</div>
+            </div>
+        `).join('');
 
-        const buildId = card.dataset.build;
-        const build = builds.find(b => b.id === buildId);
+        // Event Delegation for Navigation
+        navGrid.addEventListener('click', (e) => {
+            const card = e.target.closest('.nav-card');
+            if (!card) return;
 
-        if (build) {
-            currentBuild = build;
-            currentAct = 'act1'; // Reset act on build change
-            updateActiveNav(card);
-            renderBuild(build);
-        }
-    });
+            const buildId = card.dataset.build;
+            const build = builds.find(b => b.id === buildId);
+
+            if (build) {
+                currentBuild = build;
+                currentAct = 'act1'; // Reset act on build change
+                updateActiveNav(card);
+                renderBuild(build);
+            }
+        });
+    }
 
     // Tab Navigation
     document.querySelector('.tab-nav').addEventListener('click', (e) => {
@@ -202,11 +213,12 @@ document.addEventListener('DOMContentLoaded', () => {
             items.forEach(item => {
                 const rarityClass = `rarity-${item.rarity}`;
                 const wikiUrl = `https://bg3.wiki/wiki/${item.name.replace(/ /g, '_')}`;
+                const imgSrc = item.image || `assets/gear/${item.name.toLowerCase().replace(/ /g, '-')}.svg`;
                 html += `
                     <div class="gear-card ${rarityClass}">
                         <div class="item-icon-wrapper">
-                            <img src="assets/gear/${item.name.toLowerCase().replace(/ /g, '-')}.png"
-                                 onerror="this.src='assets/gear/placeholder.png'"
+                            <img src="${imgSrc}"
+                                 onerror="this.src='assets/gear/placeholder.svg'"
                                  alt="${item.name}">
                         </div>
                         <div class="item-info">
